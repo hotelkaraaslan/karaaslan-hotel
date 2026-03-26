@@ -5,6 +5,7 @@ import PageHero from "@/components/ui/PageHero";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import ReservationCTA from "@/components/sections/ReservationCTA";
 import { getSettings } from "@/lib/queries";
+import { localize } from "@/lib/localize";
 import { Home, MapPin, Smile, Sun, Wifi, Coffee, Car, Globe } from "lucide-react";
 
 export const revalidate = 60;
@@ -53,9 +54,9 @@ export default async function HakkimizdaPage({ params }: { params: Promise<{ lan
             <ScrollReveal direction="right">
               <div>
                 <span className="text-xs font-semibold tracking-[4px] uppercase text-accent mb-4 block">{ap.story}</span>
-                <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-4xl font-semibold text-primary leading-tight mb-6">{settings.about_title}</h2>
+                <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-4xl font-semibold text-primary leading-tight mb-6">{localize(settings, "about_title", lang)}</h2>
                 <div className="w-16 h-0.5 bg-accent mb-6" />
-                <p className="text-text-light text-base leading-8 mb-4">{settings.about_text}</p>
+                <p className="text-text-light text-base leading-8 mb-4">{localize(settings, "about_text", lang)}</p>
                 <p className="text-text-light text-base leading-8">{ap.locationText}</p>
               </div>
             </ScrollReveal>

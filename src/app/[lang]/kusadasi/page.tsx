@@ -5,6 +5,7 @@ import PageHero from "@/components/ui/PageHero";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import ReservationCTA from "@/components/sections/ReservationCTA";
 import { getPlaces, getSettings } from "@/lib/queries";
+import { localize } from "@/lib/localize";
 import { MapPin } from "lucide-react";
 
 export const revalidate = 60;
@@ -31,7 +32,7 @@ export default async function KusadasiPage({ params }: { params: Promise<{ lang:
               <span className="text-xs font-semibold tracking-[4px] uppercase text-accent mb-4 block">{dict.kusadasi.pearlOfAegean}</span>
               <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-4xl font-semibold text-primary mb-6">{dict.kusadasi.discover}</h2>
               <div className="w-16 h-0.5 bg-accent mx-auto mb-6" />
-              <p className="text-text-light text-base leading-8">{settings.kusadasi_text}</p>
+              <p className="text-text-light text-base leading-8">{localize(settings, "kusadasi_text", lang)}</p>
             </div>
           </ScrollReveal>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -39,11 +40,11 @@ export default async function KusadasiPage({ params }: { params: Promise<{ lang:
               <ScrollReveal key={place.id} delay={i * 100}>
                 <div className="group">
                   <div className="relative h-[250px] overflow-hidden mb-5">
-                    <Image src={place.image_url || "https://images.unsplash.com/photo-1623238913973-21e45cced554?w=600&q=80"} alt={place.title} fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 768px) 100vw, 33vw" />
+                    <Image src={place.image_url || "https://images.unsplash.com/photo-1623238913973-21e45cced554?w=600&q=80"} alt={localize(place, "title", lang)} fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 768px) 100vw, 33vw" />
                   </div>
-                  <h3 className="font-[family-name:var(--font-heading)] text-xl text-primary mb-2">{place.title}</h3>
-                  {place.distance && <span className="inline-flex items-center gap-1.5 text-xs text-accent font-medium mb-3"><MapPin size={12} />{place.distance}</span>}
-                  {place.description && <p className="text-sm text-text-light leading-7">{place.description}</p>}
+                  <h3 className="font-[family-name:var(--font-heading)] text-xl text-primary mb-2">{localize(place, "title", lang)}</h3>
+                  {localize(place, "distance", lang) && <span className="inline-flex items-center gap-1.5 text-xs text-accent font-medium mb-3"><MapPin size={12} />{localize(place, "distance", lang)}</span>}
+                  {localize(place, "description", lang) && <p className="text-sm text-text-light leading-7">{localize(place, "description", lang)}</p>}
                 </div>
               </ScrollReveal>
             ))}

@@ -1,14 +1,16 @@
 import Image from "next/image";
 import ScrollReveal from "@/components/ui/ScrollReveal";
+import { localize } from "@/lib/localize";
 import type { Place, Settings } from "@/lib/types";
 
 interface KusadasiSectionProps {
   places: Place[];
   settings: Settings;
   dict: { label: string; title: string };
+  lang: string;
 }
 
-export default function KusadasiSection({ places, settings, dict }: KusadasiSectionProps) {
+export default function KusadasiSection({ places, settings, dict, lang }: KusadasiSectionProps) {
   return (
     <section id="kusadasi" className="py-24 lg:py-32 bg-white">
       <div className="max-w-[1200px] mx-auto px-8">
@@ -18,12 +20,12 @@ export default function KusadasiSection({ places, settings, dict }: KusadasiSect
               <span className="text-xs font-semibold tracking-[4px] uppercase text-accent mb-4 block">{dict.label}</span>
               <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-4xl font-semibold text-primary mb-6">{dict.title}</h2>
               <div className="w-16 h-0.5 bg-accent mb-6" />
-              <p className="text-text-light text-base leading-8">{settings.kusadasi_text}</p>
+              <p className="text-text-light text-base leading-8">{localize(settings, "kusadasi_text", lang)}</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-10">
                 {places.map((place) => (
                   <div key={place.id} className="p-5 bg-cream hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] transition-all">
-                    <h4 className="text-xs font-bold uppercase tracking-[1px] text-primary mb-1">{place.title}</h4>
-                    <p className="text-xs text-text-light">{place.distance}</p>
+                    <h4 className="text-xs font-bold uppercase tracking-[1px] text-primary mb-1">{localize(place, "title", lang)}</h4>
+                    <p className="text-xs text-text-light">{localize(place, "distance", lang)}</p>
                   </div>
                 ))}
               </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import { localize } from "@/lib/localize";
 import type { Slider } from "@/lib/types";
 
 interface HeroSliderProps {
@@ -32,6 +33,9 @@ export default function HeroSlider({ sliders, reservationUrl, dict, lang }: Hero
 
   if (!sliders.length) return null;
 
+  const currentSubtitle = localize(sliders[current], "subtitle", lang) || dict.defaultSubtitle;
+  const currentButtonText = localize(sliders[current], "button_text", lang) || dict.bookNow;
+
   return (
     <section className="relative h-screen min-h-[700px] flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0">
@@ -47,11 +51,11 @@ export default function HeroSlider({ sliders, reservationUrl, dict, lang }: Hero
             Hotel By<br />Karaaslan Inn
           </h1>
           <p className="hero-fade-3 text-lg font-light leading-8 text-white/85 mb-11 max-w-xl mx-auto">
-            {sliders[current]?.subtitle || dict.defaultSubtitle}
+            {currentSubtitle}
           </p>
           <div className="hero-fade-4 flex gap-5 justify-center flex-wrap">
             <a href={reservationUrl} target="_blank" rel="noopener noreferrer" className="px-10 py-4 bg-accent text-white text-xs font-semibold tracking-[3px] uppercase hover:bg-accent-dark hover:translate-y-[-2px] hover:shadow-[0_8px_25px_rgba(201,169,110,0.35)] transition-all">
-              {dict.bookNow}
+              {currentButtonText}
             </a>
             <a href={`${langPrefix}/odalar`} className="px-10 py-4 border-[1.5px] border-white text-white text-xs font-semibold tracking-[3px] uppercase hover:bg-white hover:text-primary transition-all">
               {dict.ourRooms}

@@ -1,14 +1,16 @@
 import Image from "next/image";
 import { Home, MapPin, Smile, Sun } from "lucide-react";
 import ScrollReveal from "@/components/ui/ScrollReveal";
+import { localize } from "@/lib/localize";
 import type { Settings } from "@/lib/types";
 
 interface AboutSectionProps {
   settings: Settings;
   dict: { label: string; locationText: string; rooms: string; roomsDesc: string; location: string; locationDesc: string; satisfaction: string; satisfactionDesc: string; seaView: string; seaViewDesc: string };
+  lang: string;
 }
 
-export default function AboutSection({ settings, dict }: AboutSectionProps) {
+export default function AboutSection({ settings, dict, lang }: AboutSectionProps) {
   const features = [
     { icon: Home, title: dict.rooms, desc: dict.roomsDesc },
     { icon: MapPin, title: dict.location, desc: dict.locationDesc },
@@ -31,9 +33,9 @@ export default function AboutSection({ settings, dict }: AboutSectionProps) {
           <ScrollReveal direction="right">
             <div>
               <span className="text-xs font-semibold tracking-[4px] uppercase text-accent mb-4 block">{dict.label}</span>
-              <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-4xl font-semibold text-primary leading-tight mb-6">{settings.about_title}</h2>
+              <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-4xl font-semibold text-primary leading-tight mb-6">{localize(settings, "about_title", lang)}</h2>
               <div className="w-16 h-0.5 bg-accent mb-6" />
-              <p className="text-text-light text-base leading-8 mb-4">{settings.about_text}</p>
+              <p className="text-text-light text-base leading-8 mb-4">{localize(settings, "about_text", lang)}</p>
               <p className="text-text-light text-base leading-8">{dict.locationText}</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-10">
                 {features.map((f) => (

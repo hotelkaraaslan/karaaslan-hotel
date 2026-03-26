@@ -6,6 +6,7 @@ import PageHero from "@/components/ui/PageHero";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import ReservationCTA from "@/components/sections/ReservationCTA";
 import { getRooms, getSettings } from "@/lib/queries";
+import { localize, localizeArray } from "@/lib/localize";
 import { Eye, Layers, ArrowRight, Check } from "lucide-react";
 
 export const revalidate = 60;
@@ -32,19 +33,19 @@ export default async function OdalarPage({ params }: { params: Promise<{ lang: s
             <ScrollReveal key={room.id}>
               <div className={`grid grid-cols-1 lg:grid-cols-2 gap-0 mb-20 last:mb-0 ${i % 2 === 1 ? "lg:[&>*:first-child]:order-2" : ""}`}>
                 <div className="relative h-[350px] lg:h-[500px]">
-                  <Image src={room.image_url} alt={room.title} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
+                  <Image src={room.image_url} alt={localize(room, "title", lang)} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
                   <div className="absolute bottom-0 left-0 right-0 p-5 bg-gradient-to-t from-black/60 to-transparent flex justify-end gap-4">
                     <span className="flex items-center gap-1.5 text-white text-xs font-medium"><Layers size={14} />{room.room_count} {dict.rooms.room}</span>
-                    <span className="flex items-center gap-1.5 text-white text-xs font-medium"><Eye size={14} />{room.view_type}</span>
+                    <span className="flex items-center gap-1.5 text-white text-xs font-medium"><Eye size={14} />{localize(room, "view_type", lang)}</span>
                   </div>
                 </div>
                 <div className={`flex flex-col justify-center p-10 lg:p-16 ${i % 2 === 0 ? "bg-cream" : "bg-white border border-cream-dark"}`}>
                   <div className="font-[family-name:var(--font-heading)] text-sm text-accent tracking-[2px] mb-2">{String(i + 1).padStart(2, "0")}</div>
-                  <h2 className="font-[family-name:var(--font-heading)] text-3xl text-primary mb-4">{room.title}</h2>
-                  <p className="text-text-light leading-8 mb-6">{room.description}</p>
-                  {room.features.length > 0 && (
+                  <h2 className="font-[family-name:var(--font-heading)] text-3xl text-primary mb-4">{localize(room, "title", lang)}</h2>
+                  <p className="text-text-light leading-8 mb-6">{localize(room, "description", lang)}</p>
+                  {localizeArray(room, "features", lang).length > 0 && (
                     <div className="grid grid-cols-2 gap-2 mb-8">
-                      {room.features.map((feature) => (
+                      {localizeArray(room, "features", lang).map((feature) => (
                         <span key={feature} className="flex items-center gap-2 text-sm text-text-light"><Check size={14} className="text-accent" />{feature}</span>
                       ))}
                     </div>

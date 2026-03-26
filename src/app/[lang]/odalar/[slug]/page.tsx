@@ -5,6 +5,7 @@ import PageHero from "@/components/ui/PageHero";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import ReservationCTA from "@/components/sections/ReservationCTA";
 import { getRoomBySlug, getRooms, getSettings } from "@/lib/queries";
+import { localize, localizeArray } from "@/lib/localize";
 import { Check, Users, Maximize, Eye } from "lucide-react";
 
 export async function generateStaticParams() {
@@ -18,7 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   const dict = await getDictionary(lang as Locale);
   const room = await getRoomBySlug(slug);
   if (!room) return { title: dict.rooms.notFound };
-  return { title: `${room.title} | Hotel By Karaaslan Inn`, description: room.short_description || room.description };
+  return { title: `${localize(room, "title", lang)} | Hotel By Karaaslan Inn`, description: localize(room, "short_description", lang) || localize(room, "description", lang) };
 }
 
 export default async function RoomDetailPage({ params }: { params: Promise<{ lang: string; slug: string }> }) {
@@ -30,7 +31,7 @@ export default async function RoomDetailPage({ params }: { params: Promise<{ lan
 
   return (
     <main>
-      <PageHero title={room.title} imageUrl={room.image_url} />
+      <PageHero title={localize(room, "title", lang)} imageUrl={room.image_url} />
       <section className="py-24 lg:py-32 bg-white">
         <div className="max-w-[1000px] mx-auto px-8">
           <ScrollReveal>
@@ -55,16 +56,16 @@ export default async function RoomDetailPage({ params }: { params: Promise<{ lan
                 <Eye size={20} className="text-accent" />
                 <div>
                   <div className="text-xs text-text-light uppercase tracking-wider">{dict.rooms.view}</div>
-                  <div className="text-sm font-semibold text-primary">{room.view_type}</div>
+                  <div className="text-sm font-semibold text-primary">{localize(room, "view_type", lang)}</div>
                 </div>
               </div>
             </div>
-            <p className="text-text-light text-base leading-8 mb-10">{room.description}</p>
-            {room.features.length > 0 && (
+            <p className="text-text-light text-base leading-8 mb-10">{localize(room, "description", lang)}</p>
+            {localizeArray(room, "features", lang).length > 0 && (
               <div className="mb-12">
                 <h3 className="font-[family-name:var(--font-heading)] text-xl text-primary mb-6">{dict.rooms.features}</h3>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                  {room.features.map((feature) => (
+                  {localizeArray(room, "features", lang).map((feature) => (
                     <span key={feature} className="flex items-center gap-2.5 text-sm text-text-light p-3 bg-cream"><Check size={16} className="text-accent min-w-4" />{feature}</span>
                   ))}
                 </div>
@@ -75,7 +76,7 @@ export default async function RoomDetailPage({ params }: { params: Promise<{ lan
                 <h3 className="font-[family-name:var(--font-heading)] text-xl text-primary mb-6">{dict.rooms.gallery}</h3>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                   {room.gallery_images.map((img, i) => (
-                    <div key={i} className="relative h-[200px]"><Image src={img} alt={`${room.title} ${i + 1}`} fill className="object-cover" sizes="33vw" /></div>
+                    <div key={i} className="relative h-[200px]"><Image src={img} alt={`${localize(room, "title", lang)} ${i + 1}`} fill className="object-cover" sizes="33vw" /></div>
                   ))}
                 </div>
               </div>

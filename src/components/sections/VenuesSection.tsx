@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import ScrollReveal from "@/components/ui/ScrollReveal";
+import { localize } from "@/lib/localize";
 import type { Venue } from "@/lib/types";
 
 interface VenuesSectionProps {
@@ -25,12 +26,12 @@ export default function VenuesSection({ venues, dict, lang }: VenuesSectionProps
         <ScrollReveal key={venue.id}>
           <div className={`grid grid-cols-1 lg:grid-cols-2 mb-0.5 min-h-[450px] lg:min-h-[500px]`}>
             <div className={`relative min-h-[350px] lg:min-h-[500px] ${i % 2 === 1 ? "lg:order-2" : ""}`}>
-              <Image src={venue.image_url} alt={venue.title} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
+              <Image src={venue.image_url} alt={localize(venue, "title", lang)} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
             </div>
             <div className={`flex flex-col justify-center p-10 lg:p-20 ${i % 2 === 0 ? "bg-cream" : "bg-white"} ${i % 2 === 1 ? "lg:order-1" : ""}`}>
               <div className="font-[family-name:var(--font-heading)] text-5xl text-accent/20 font-bold mb-4">{String(i + 1).padStart(2, "0")}</div>
-              <h3 className="font-[family-name:var(--font-heading)] text-3xl text-primary mb-4">{venue.title}</h3>
-              <p className="text-text-light leading-8 mb-8">{venue.short_description || venue.description}</p>
+              <h3 className="font-[family-name:var(--font-heading)] text-3xl text-primary mb-4">{localize(venue, "title", lang)}</h3>
+              <p className="text-text-light leading-8 mb-8">{localize(venue, "short_description", lang) || localize(venue, "description", lang)}</p>
               <Link href={`${lp}/mekanlar/${venue.slug}`} className="inline-flex items-center gap-2.5 text-xs font-semibold tracking-[2px] uppercase text-accent hover:gap-4 transition-all">{dict.more}<ArrowRight size={18} /></Link>
             </div>
           </div>

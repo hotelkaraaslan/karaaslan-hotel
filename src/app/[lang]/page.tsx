@@ -32,11 +32,11 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
     <main>
       <HeroSlider sliders={sliders} reservationUrl={settings.reservation_url} dict={dict.hero} lang={lang} />
       <BookingBar reservationUrl={settings.reservation_url} dict={dict.booking} />
-      <AboutSection settings={settings} dict={dict.about} />
+      <AboutSection settings={settings} dict={dict.about} lang={lang} />
       <RoomsSection rooms={rooms} dict={dict.rooms} lang={lang} />
       <VenuesSection venues={venues} dict={dict.venues} lang={lang} />
       <GallerySection images={gallery} dict={dict.gallery} lang={lang} />
-      <KusadasiSection places={places} settings={settings} dict={dict.kusadasi} />
+      <KusadasiSection places={places} settings={settings} dict={dict.kusadasi} lang={lang} />
       <ReservationCTA reservationUrl={settings.reservation_url} dict={dict.reservation} />
     </main>
   );

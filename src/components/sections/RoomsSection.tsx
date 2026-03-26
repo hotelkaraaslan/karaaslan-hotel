@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Eye, Layers, ArrowRight } from "lucide-react";
 import ScrollReveal from "@/components/ui/ScrollReveal";
+import { localize } from "@/lib/localize";
 import type { Room } from "@/lib/types";
 
 interface RoomsSectionProps {
@@ -27,16 +28,16 @@ export default function RoomsSection({ rooms, dict, lang }: RoomsSectionProps) {
             <ScrollReveal key={room.id} delay={i * 150}>
               <Link href={`${lp}/odalar/${room.slug}`} className="block group bg-white overflow-hidden">
                 <div className="relative h-[300px] lg:h-[350px] overflow-hidden">
-                  <Image src={room.image_url} alt={room.title} fill className="object-cover transition-transform duration-700 group-hover:scale-108" sizes="(max-width: 1024px) 100vw, 50vw" />
+                  <Image src={room.image_url} alt={localize(room, "title", lang)} fill className="object-cover transition-transform duration-700 group-hover:scale-108" sizes="(max-width: 1024px) 100vw, 50vw" />
                   <div className="absolute bottom-0 left-0 right-0 p-5 bg-gradient-to-t from-black/60 to-transparent flex justify-end gap-4">
                     <span className="flex items-center gap-1.5 text-white text-xs font-medium"><Layers size={14} />{room.room_count} {dict.room}</span>
-                    <span className="flex items-center gap-1.5 text-white text-xs font-medium"><Eye size={14} />{room.view_type}</span>
+                    <span className="flex items-center gap-1.5 text-white text-xs font-medium"><Eye size={14} />{localize(room, "view_type", lang)}</span>
                   </div>
                 </div>
                 <div className="p-8">
                   <div className="font-[family-name:var(--font-heading)] text-sm text-accent tracking-[2px] mb-2">{String(i + 1).padStart(2, "0")}</div>
-                  <h3 className="font-[family-name:var(--font-heading)] text-2xl text-primary mb-3">{room.title}</h3>
-                  <p className="text-sm text-text-light leading-7 mb-5">{room.short_description || room.description}</p>
+                  <h3 className="font-[family-name:var(--font-heading)] text-2xl text-primary mb-3">{localize(room, "title", lang)}</h3>
+                  <p className="text-sm text-text-light leading-7 mb-5">{localize(room, "short_description", lang) || localize(room, "description", lang)}</p>
                   <span className="inline-flex items-center gap-2.5 text-xs font-semibold tracking-[2px] uppercase text-accent group-hover:gap-4 transition-all">{dict.viewDetails}<ArrowRight size={18} /></span>
                 </div>
               </Link>
