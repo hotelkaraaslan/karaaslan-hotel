@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { getDictionary, hasLocale, type Locale } from "@/dictionaries";
 import PageHero from "@/components/ui/PageHero";
 import ScrollReveal from "@/components/ui/ScrollReveal";
+import ContactForm from "@/components/sections/ContactForm";
 import { getSettings } from "@/lib/queries";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 
@@ -93,52 +94,16 @@ export default async function IletisimPage({ params }: { params: Promise<{ lang:
 
             {/* Contact Form */}
             <ScrollReveal direction="right">
-              <div className="bg-cream p-10 lg:p-12">
-                <h3 className="font-[family-name:var(--font-heading)] text-2xl text-primary mb-3">{ct.formTitle}</h3>
-                <p className="text-sm text-text-light leading-7 mb-8">{ct.formDesc}</p>
-
-                <form className="space-y-5">
-                  <div>
-                    <input
-                      type="text"
-                      placeholder={ct.name}
-                      className="w-full px-5 py-4 bg-white border border-gray-200 text-sm font-[family-name:var(--font-body)] text-primary outline-none focus:border-accent transition-colors placeholder:text-text-light/60"
-                    />
-                  </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                    <input
-                      type="email"
-                      placeholder={ct.email}
-                      className="w-full px-5 py-4 bg-white border border-gray-200 text-sm font-[family-name:var(--font-body)] text-primary outline-none focus:border-accent transition-colors placeholder:text-text-light/60"
-                    />
-                    <input
-                      type="tel"
-                      placeholder={ct.phone}
-                      className="w-full px-5 py-4 bg-white border border-gray-200 text-sm font-[family-name:var(--font-body)] text-primary outline-none focus:border-accent transition-colors placeholder:text-text-light/60"
-                    />
-                  </div>
-                  <div>
-                    <input
-                      type="text"
-                      placeholder={ct.subject}
-                      className="w-full px-5 py-4 bg-white border border-gray-200 text-sm font-[family-name:var(--font-body)] text-primary outline-none focus:border-accent transition-colors placeholder:text-text-light/60"
-                    />
-                  </div>
-                  <div>
-                    <textarea
-                      rows={5}
-                      placeholder={ct.message}
-                      className="w-full px-5 py-4 bg-white border border-gray-200 text-sm font-[family-name:var(--font-body)] text-primary outline-none focus:border-accent transition-colors resize-none placeholder:text-text-light/60"
-                    />
-                  </div>
-                  <button
-                    type="submit"
-                    className="w-full px-10 py-4 bg-accent text-white text-xs font-semibold tracking-[3px] uppercase hover:bg-accent-dark hover:translate-y-[-2px] hover:shadow-[0_8px_25px_rgba(201,169,110,0.35)] transition-all cursor-pointer"
-                  >
-                    {ct.send}
-                  </button>
-                </form>
-              </div>
+              <ContactForm labels={{
+                formTitle: ct.formTitle,
+                formDesc: ct.formDesc,
+                name: ct.name,
+                email: ct.email,
+                phone: ct.phone,
+                subject: ct.subject,
+                message: ct.message,
+                send: ct.send,
+              }} />
             </ScrollReveal>
           </div>
         </div>
