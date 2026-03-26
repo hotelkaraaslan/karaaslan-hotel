@@ -3,15 +3,48 @@ import { MapPin, Phone, Mail } from "lucide-react";
 import type { Settings } from "@/lib/types";
 
 interface FooterProps {
+  dict: {
+    description: string;
+    quickLinks: string;
+    services: string;
+    contact: string;
+    restaurant: string;
+    barLounge: string;
+    pool: string;
+    transfer: string;
+    tourOrg: string;
+    copyright: string;
+    privacy: string;
+    kvkk: string;
+  };
+  navDict: {
+    about: string;
+    rooms: string;
+    venues: string;
+    gallery: string;
+    kusadasi: string;
+    contact: string;
+  };
   settings: Settings;
+  lang: string;
 }
 
-export default function Footer({ settings }: FooterProps) {
+export default function Footer({ dict, navDict, settings, lang }: FooterProps) {
+  const lp = lang === "tr" ? "" : `/${lang}`;
+
+  const quickLinks = [
+    { href: `${lp}/hakkimizda`, label: navDict.about },
+    { href: `${lp}/odalar`, label: navDict.rooms },
+    { href: `${lp}/mekanlar`, label: navDict.venues },
+    { href: `${lp}/galeri`, label: navDict.gallery },
+    { href: `${lp}/kusadasi`, label: navDict.kusadasi },
+    { href: `${lp}/iletisim`, label: navDict.contact },
+  ];
+
   return (
     <footer className="bg-dark text-white/70 pt-20">
       <div className="max-w-[1200px] mx-auto px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
-          {/* Brand */}
           <div>
             <div className="font-[family-name:var(--font-heading)] text-xl font-bold text-white tracking-[3px] mb-1">
               Karaaslan Inn
@@ -19,93 +52,48 @@ export default function Footer({ settings }: FooterProps) {
             <span className="text-[0.6rem] tracking-[5px] uppercase text-white/40 block mb-5">
               Hotel &bull; Kuşadası
             </span>
-            <p className="text-sm leading-7 mb-6">
-              Ege&apos;nin büyüleyici kıyılarında, konfor ve zarafetin buluşma noktası.
-              Unutulmaz bir tatil deneyimi için sizi bekliyoruz.
-            </p>
+            <p className="text-sm leading-7 mb-6">{dict.description}</p>
             <div className="flex gap-3">
               {settings.facebook_url && (
-                <a
-                  href={settings.facebook_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 flex items-center justify-center border border-white/15 text-white/60 hover:border-accent hover:text-accent transition-all"
-                  aria-label="Facebook"
-                >
+                <a href={settings.facebook_url} target="_blank" rel="noopener noreferrer" className="w-10 h-10 flex items-center justify-center border border-white/15 text-white/60 hover:border-accent hover:text-accent transition-all" aria-label="Facebook">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
                 </a>
               )}
               {settings.instagram_url && (
-                <a
-                  href={settings.instagram_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 flex items-center justify-center border border-white/15 text-white/60 hover:border-accent hover:text-accent transition-all"
-                  aria-label="Instagram"
-                >
+                <a href={settings.instagram_url} target="_blank" rel="noopener noreferrer" className="w-10 h-10 flex items-center justify-center border border-white/15 text-white/60 hover:border-accent hover:text-accent transition-all" aria-label="Instagram">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
                 </a>
               )}
               {settings.twitter_url && (
-                <a
-                  href={settings.twitter_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 flex items-center justify-center border border-white/15 text-white/60 hover:border-accent hover:text-accent transition-all"
-                  aria-label="X"
-                >
+                <a href={settings.twitter_url} target="_blank" rel="noopener noreferrer" className="w-10 h-10 flex items-center justify-center border border-white/15 text-white/60 hover:border-accent hover:text-accent transition-all" aria-label="X">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
                 </a>
               )}
             </div>
           </div>
 
-          {/* Quick Links */}
           <div>
-            <h4 className="text-xs font-bold tracking-[2px] uppercase text-white mb-6">
-              Hızlı Erişim
-            </h4>
+            <h4 className="text-xs font-bold tracking-[2px] uppercase text-white mb-6">{dict.quickLinks}</h4>
             <ul className="space-y-3">
-              {[
-                { href: "/hakkimizda", label: "Hakkımızda" },
-                { href: "/odalar", label: "Odalar" },
-                { href: "/mekanlar", label: "Mekanlar" },
-                { href: "/galeri", label: "Galeri" },
-                { href: "/kusadasi", label: "Kuşadası" },
-              ].map((link) => (
+              {quickLinks.map((link) => (
                 <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-white/50 hover:text-accent transition-colors"
-                  >
-                    {link.label}
-                  </Link>
+                  <Link href={link.href} className="text-sm text-white/50 hover:text-accent transition-colors">{link.label}</Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Services */}
           <div>
-            <h4 className="text-xs font-bold tracking-[2px] uppercase text-white mb-6">
-              Hizmetler
-            </h4>
+            <h4 className="text-xs font-bold tracking-[2px] uppercase text-white mb-6">{dict.services}</h4>
             <ul className="space-y-3">
-              {["Restoran", "Bar & Lounge", "Havuz", "Transfer", "Tur Organizasyonu"].map(
-                (item) => (
-                  <li key={item}>
-                    <span className="text-sm text-white/50">{item}</span>
-                  </li>
-                )
-              )}
+              {[dict.restaurant, dict.barLounge, dict.pool, dict.transfer, dict.tourOrg].map((item) => (
+                <li key={item}><span className="text-sm text-white/50">{item}</span></li>
+              ))}
             </ul>
           </div>
 
-          {/* Contact */}
           <div>
-            <h4 className="text-xs font-bold tracking-[2px] uppercase text-white mb-6">
-              İletişim
-            </h4>
+            <h4 className="text-xs font-bold tracking-[2px] uppercase text-white mb-6">{dict.contact}</h4>
             <ul className="space-y-4">
               <li className="flex items-start gap-3 text-sm">
                 <MapPin size={16} className="text-accent min-w-4 mt-1" />
@@ -113,33 +101,21 @@ export default function Footer({ settings }: FooterProps) {
               </li>
               <li className="flex items-start gap-3 text-sm">
                 <Phone size={16} className="text-accent min-w-4 mt-1" />
-                <a href={`tel:${settings.phone}`} className="hover:text-accent transition-colors">
-                  {settings.phone}
-                </a>
+                <a href={`tel:${settings.phone}`} className="hover:text-accent transition-colors">{settings.phone}</a>
               </li>
               <li className="flex items-start gap-3 text-sm">
                 <Mail size={16} className="text-accent min-w-4 mt-1" />
-                <a
-                  href={`mailto:${settings.email}`}
-                  className="hover:text-accent transition-colors"
-                >
-                  {settings.email}
-                </a>
+                <a href={`mailto:${settings.email}`} className="hover:text-accent transition-colors">{settings.email}</a>
               </li>
             </ul>
           </div>
         </div>
 
-        {/* Bottom */}
         <div className="border-t border-white/8 py-6 flex flex-col md:flex-row justify-between items-center gap-2 text-xs text-white/35">
-          <span>&copy; 2026 Hotel By Karaaslan Inn. Tüm hakları saklıdır.</span>
+          <span>&copy; 2026 Hotel By Karaaslan Inn. {dict.copyright}</span>
           <div className="flex gap-4">
-            <Link href="#" className="hover:text-accent transition-colors">
-              Gizlilik Politikası
-            </Link>
-            <Link href="#" className="hover:text-accent transition-colors">
-              KVKK
-            </Link>
+            <Link href="#" className="hover:text-accent transition-colors">{dict.privacy}</Link>
+            <Link href="#" className="hover:text-accent transition-colors">{dict.kvkk}</Link>
           </div>
         </div>
       </div>
