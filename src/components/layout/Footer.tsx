@@ -2,6 +2,14 @@ import Link from "next/link";
 import { MapPin, Phone, Mail } from "lucide-react";
 import type { Settings } from "@/lib/types";
 
+interface Document {
+  id: string;
+  title: string;
+  title_en?: string;
+  title_de?: string;
+  file_url: string;
+}
+
 interface FooterProps {
   dict: {
     description: string;
@@ -16,6 +24,7 @@ interface FooterProps {
     copyright: string;
     privacy: string;
     kvkk: string;
+    documents?: string;
   };
   navDict: {
     about: string;
@@ -27,9 +36,16 @@ interface FooterProps {
   };
   settings: Settings;
   lang: string;
+  documents?: Document[];
 }
 
-export default function Footer({ dict, navDict, settings, lang }: FooterProps) {
+function localize(doc: Document, lang: string): string {
+  if (lang === "en" && doc.title_en) return doc.title_en;
+  if (lang === "de" && doc.title_de) return doc.title_de;
+  return doc.title;
+}
+
+export default function Footer({ dict, navDict, settings, lang, documents = [] }: FooterProps) {
   const lp = lang === "tr" ? "" : `/${lang}`;
 
   const quickLinks = [
@@ -111,12 +127,27 @@ export default function Footer({ dict, navDict, settings, lang }: FooterProps) {
           </div>
         </div>
 
-        <div className="border-t border-white/8 py-6 flex flex-col md:flex-row justify-between items-center gap-2 text-xs text-white/35">
-          <span>&copy; 2026 Hotel By Karaaslan Inn. {dict.copyright}</span>
-          <div className="flex gap-4">
-            <Link href="#" className="hover:text-accent transition-colors">{dict.privacy}</Link>
-            <Link href="#" className="hover:text-accent transition-colors">{dict.kvkk}</Link>
+        {/* Documents Section */}
+        {documents.length > 0 && (
+          <div className="border-t border-white/8 py-6">
+            <div className="flex flex-wrap justify-center gap-x-6 gap-y-2">
+              {documents.map((doc) => (
+                <a
+                  key={doc.id}
+                  href={doc.file_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs text-white/40 hover:text-accent transition-colors"
+                >
+                  {localize(doc, lang)}
+                </a>
+              ))}
+            </div>
           </div>
+        )}
+
+        <div className="border-t border-white/8 py-6 flex flex-col md:flex-row justify-between items-center gap-2 text-xs text-white/35">
+          <span>&copy; {new Date().getFullYear()} Hotel By Karaaslan Inn. {dict.copyright}</span>
         </div>
       </div>
     </footer>

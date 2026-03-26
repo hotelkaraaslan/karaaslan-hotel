@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { getDictionary, hasLocale, type Locale } from "@/dictionaries";
-import { getSettings } from "@/lib/queries";
+import { getSettings, getDocuments } from "@/lib/queries";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 
@@ -18,9 +18,10 @@ export default async function LangLayout({
   const { lang } = await params;
   if (!hasLocale(lang)) notFound();
 
-  const [dict, settings] = await Promise.all([
+  const [dict, settings, documents] = await Promise.all([
     getDictionary(lang as Locale),
     getSettings(),
+    getDocuments(),
   ]);
 
   return (
@@ -31,7 +32,7 @@ export default async function LangLayout({
         reservationUrl={settings.reservation_url}
       />
       {children}
-      <Footer dict={dict.footer} navDict={dict.nav} settings={settings} lang={lang} />
+      <Footer dict={dict.footer} navDict={dict.nav} settings={settings} lang={lang} documents={documents} />
     </>
   );
 }

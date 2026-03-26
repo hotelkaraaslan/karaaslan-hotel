@@ -90,6 +90,16 @@ export async function getTrackingCodes() {
   return data ?? [];
 }
 
+export async function getDocuments() {
+  const { data, error } = await supabase
+    .from("documents")
+    .select("*")
+    .eq("is_active", true)
+    .order("display_order");
+  if (error) return [];
+  return data ?? [];
+}
+
 export async function getSeoBySlug(slug: string) {
   const { data, error } = await supabase
     .from("seo_settings")
