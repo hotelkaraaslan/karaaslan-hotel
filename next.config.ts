@@ -15,7 +15,7 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
-      // Redirect old .aspx URLs for SEO
+      // Old .aspx URLs
       {
         source: "/rezervasyon.aspx",
         destination: "/rezervasyon",
@@ -23,6 +23,23 @@ const nextConfig: NextConfig = {
       },
       {
         source: "/covid-19-bilgilendirme.aspx",
+        destination: "/",
+        permanent: true,
+      },
+      // Old room URLs (were at root level, now under /odalar/)
+      {
+        source: "/standart-oda",
+        destination: "/odalar/standart-oda",
+        permanent: true,
+      },
+      {
+        source: "/suit-oda",
+        destination: "/odalar/suit-oda",
+        permanent: true,
+      },
+      // Catch any other .aspx pages
+      {
+        source: "/:path*.aspx",
         destination: "/",
         permanent: true,
       },
