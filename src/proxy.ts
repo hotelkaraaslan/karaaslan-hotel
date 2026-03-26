@@ -1,26 +1,55 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { createServerClient } from "@supabase/ssr";
 
 const locales = ["tr", "en", "de"];
 const defaultLocale = "tr";
 
-function getLocale(request: NextRequest): string {
-  const acceptLanguage = request.headers.get("accept-language") || "";
-  const preferred = acceptLanguage
-    .split(",")
-    .map((lang) => lang.split(";")[0].trim().toLowerCase());
-
-  for (const lang of preferred) {
-    const short = lang.substring(0, 2);
-    if (locales.includes(short)) return short;
-  }
-  return defaultLocale;
-}
-
-export function proxy(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Check if pathname already has a locale prefix
+  // Admin routes - check authentication
+  if (pathname.startsWith("/admin")) {
+    // Allow login page without auth
+    if (pathname === "/admin/login") {
+      return NextResponse.next();
+    }
+
+    // Check auth for all other admin routes
+    let response = NextResponse.next({
+      request: { headers: request.headers },
+    });
+
+    const supabase = createServerClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      {
+        cookies: {
+          getAll() {
+            return request.cookies.getAll();
+          },
+          setAll(cookiesToSet) {
+            cookiesToSet.forEach(({ name, value, options }) => {
+              request.cookies.set(name, value);
+              response.cookies.set(name, value, options);
+            });
+          },
+        },
+      }
+    );
+
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (!user) {
+      return NextResponse.redirect(new URL("/admin/login", request.url));
+    }
+
+    return response;
+  }
+
+  // Public routes - locale handling
   const pathnameHasLocale = locales.some(
     (locale) =>
       pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
@@ -53,7 +82,7 @@ export function proxy(request: NextRequest) {
 
 export const config = {
   matcher: [
-    // Match all paths except _next, admin, api, and static files
-    "/((?!_next|admin|api|.*\\..*).*)",
+    // Match all paths except _next, api, and static files
+    "/((?!_next|api|.*\\..*).*)",
   ],
 };

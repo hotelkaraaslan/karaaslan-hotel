@@ -79,3 +79,23 @@ export async function getSettings(): Promise<Settings> {
   if (error) throw error;
   return data;
 }
+
+export async function getTrackingCodes() {
+  const { data, error } = await supabase
+    .from("tracking_codes")
+    .select("*")
+    .eq("is_active", true)
+    .order("display_order");
+  if (error) return [];
+  return data ?? [];
+}
+
+export async function getSeoBySlug(slug: string) {
+  const { data, error } = await supabase
+    .from("seo_settings")
+    .select("*")
+    .eq("page_slug", slug)
+    .single();
+  if (error) return null;
+  return data;
+}
