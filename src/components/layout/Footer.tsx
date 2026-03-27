@@ -68,7 +68,7 @@ export default function Footer({ dict, navDict, settings, lang, documents = [] }
               alt="Hotel By Karaaslan Inn"
               width={180}
               height={60}
-              className="h-20 w-auto mb-5"
+              className="h-24 w-auto mb-5"
             />
             <p className="text-sm leading-7 mb-6">{dict.description}</p>
             <div className="flex gap-3">

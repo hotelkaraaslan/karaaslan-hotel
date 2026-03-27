@@ -99,7 +99,7 @@ export default function Navbar({
               alt="Hotel By Karaaslan Inn"
               width={220}
               height={75}
-              className={`h-16 w-auto transition-all duration-400 ${
+              className={`h-[4.5rem] w-auto transition-all duration-400 ${
                 isTransparent ? "" : "brightness-0"
               }`}
               priority

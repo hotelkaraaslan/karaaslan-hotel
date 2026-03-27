@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Raleway } from "next/font/google";
+import { Cormorant_Garamond, Raleway } from "next/font/google";
 import { headers } from "next/headers";
 import { getTrackingCodes } from "@/lib/queries";
 import "./globals.css";
 
-const playfair = Playfair_Display({
+const cormorant = Cormorant_Garamond({
   variable: "--font-heading",
   subsets: ["latin"],
   display: "swap",
+  weight: ["300", "400", "500", "600", "700"],
 });
 
 const raleway = Raleway({
@@ -45,7 +46,7 @@ export default async function RootLayout({
   const customBody = trackingCodes.filter((c) => c.code_type === "custom_body");
 
   return (
-    <html lang={lang} className={`${playfair.variable} ${raleway.variable}`}>
+    <html lang={lang} className={`${cormorant.variable} ${raleway.variable}`}>
       <head>
         {/* Google Tag Manager */}
         {gtmCode && (
