@@ -3,7 +3,7 @@ import { getDictionary, hasLocale, type Locale } from "@/dictionaries";
 import PageHero from "@/components/ui/PageHero";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import ContactForm from "@/components/sections/ContactForm";
-import { getSettings } from "@/lib/queries";
+import { getSettings, getPageHeroImage } from "@/lib/queries";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 
 export const revalidate = 60;
@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
 export default async function IletisimPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
   if (!hasLocale(lang)) notFound();
-  const [dict, settings] = await Promise.all([getDictionary(lang as Locale), getSettings()]);
+  const [dict, settings, heroImage] = await Promise.all([getDictionary(lang as Locale), getSettings(), getPageHeroImage('contact')]);
   const ct = dict.contact;
 
   return (
@@ -26,7 +26,7 @@ export default async function IletisimPage({ params }: { params: Promise<{ lang:
       <PageHero
         title={ct.title}
         subtitle={ct.subtitle}
-        imageUrl="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=1920&q=80"
+        imageUrl={heroImage || "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=1920&q=80"}
       />
 
       <section className="py-24 lg:py-32 bg-white">

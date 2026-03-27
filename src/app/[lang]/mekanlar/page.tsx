@@ -5,7 +5,7 @@ import { getDictionary, hasLocale, type Locale } from "@/dictionaries";
 import PageHero from "@/components/ui/PageHero";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import ReservationCTA from "@/components/sections/ReservationCTA";
-import { getVenues, getSettings } from "@/lib/queries";
+import { getVenues, getSettings, getPageHeroImage } from "@/lib/queries";
 import { localize } from "@/lib/localize";
 import { ArrowRight } from "lucide-react";
 
@@ -21,12 +21,12 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
 export default async function MekanlarPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
   if (!hasLocale(lang)) notFound();
-  const [dict, venues, settings] = await Promise.all([getDictionary(lang as Locale), getVenues(), getSettings()]);
+  const [dict, venues, settings, heroImage] = await Promise.all([getDictionary(lang as Locale), getVenues(), getSettings(), getPageHeroImage('venues')]);
   const lp = lang === "tr" ? "" : `/${lang}`;
 
   return (
     <main>
-      <PageHero title={dict.venues.label} subtitle={dict.venues.subtitle} imageUrl="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1920&q=80" />
+      <PageHero title={dict.venues.label} subtitle={dict.venues.subtitle} imageUrl={heroImage || "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1920&q=80"} />
       <section className="py-24 lg:py-32 bg-white">
         {venues.map((venue, i) => (
           <ScrollReveal key={venue.id}>

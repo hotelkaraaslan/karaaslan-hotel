@@ -5,7 +5,7 @@ import { getDictionary, hasLocale, type Locale } from "@/dictionaries";
 import PageHero from "@/components/ui/PageHero";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import ReservationCTA from "@/components/sections/ReservationCTA";
-import { getRooms, getSettings } from "@/lib/queries";
+import { getRooms, getSettings, getPageHeroImage } from "@/lib/queries";
 import { localize, localizeArray } from "@/lib/localize";
 import { Eye, Layers, ArrowRight, Check } from "lucide-react";
 
@@ -21,12 +21,12 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
 export default async function OdalarPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
   if (!hasLocale(lang)) notFound();
-  const [dict, rooms, settings] = await Promise.all([getDictionary(lang as Locale), getRooms(), getSettings()]);
+  const [dict, rooms, settings, heroImage] = await Promise.all([getDictionary(lang as Locale), getRooms(), getSettings(), getPageHeroImage('rooms')]);
   const lp = lang === "tr" ? "" : `/${lang}`;
 
   return (
     <main>
-      <PageHero title={dict.rooms.title} subtitle={dict.rooms.subtitle} imageUrl="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1920&q=80" />
+      <PageHero title={dict.rooms.title} subtitle={dict.rooms.subtitle} imageUrl={heroImage || "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1920&q=80"} />
       <section className="py-24 lg:py-32 bg-white">
         <div className="max-w-[1200px] mx-auto px-8">
           {rooms.map((room, i) => (

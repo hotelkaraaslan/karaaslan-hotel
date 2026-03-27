@@ -109,3 +109,13 @@ export async function getSeoBySlug(slug: string) {
   if (error) return null;
   return data;
 }
+
+export async function getPageHeroImage(pageSlug: string): Promise<string | null> {
+  const { data, error } = await supabase
+    .from("seo_settings")
+    .select("hero_image")
+    .eq("page_slug", pageSlug)
+    .single();
+  if (error || !data?.hero_image) return null;
+  return data.hero_image;
+}

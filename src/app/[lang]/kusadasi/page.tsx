@@ -4,7 +4,7 @@ import { getDictionary, hasLocale, type Locale } from "@/dictionaries";
 import PageHero from "@/components/ui/PageHero";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import ReservationCTA from "@/components/sections/ReservationCTA";
-import { getPlaces, getSettings } from "@/lib/queries";
+import { getPlaces, getSettings, getPageHeroImage } from "@/lib/queries";
 import { localize } from "@/lib/localize";
 import { MapPin } from "lucide-react";
 
@@ -20,11 +20,11 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
 export default async function KusadasiPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
   if (!hasLocale(lang)) notFound();
-  const [dict, places, settings] = await Promise.all([getDictionary(lang as Locale), getPlaces(), getSettings()]);
+  const [dict, places, settings, heroImage] = await Promise.all([getDictionary(lang as Locale), getPlaces(), getSettings(), getPageHeroImage('kusadasi')]);
 
   return (
     <main>
-      <PageHero title={dict.kusadasi.title} subtitle={dict.kusadasi.subtitle} imageUrl="https://images.unsplash.com/photo-1623238913973-21e45cced554?w=1920&q=80" />
+      <PageHero title={dict.kusadasi.title} subtitle={dict.kusadasi.subtitle} imageUrl={heroImage || "https://images.unsplash.com/photo-1623238913973-21e45cced554?w=1920&q=80"} />
       <section className="py-24 lg:py-32 bg-white">
         <div className="max-w-[1200px] mx-auto px-8">
           <ScrollReveal>

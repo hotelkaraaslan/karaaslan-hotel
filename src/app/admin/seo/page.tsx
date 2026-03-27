@@ -29,7 +29,7 @@ export default function SeoPage() {
     await updateSeoSettings(page.id, {
       meta_title: page.meta_title, meta_title_en: page.meta_title_en, meta_title_de: page.meta_title_de,
       meta_description: page.meta_description, meta_description_en: page.meta_description_en, meta_description_de: page.meta_description_de,
-      og_image: page.og_image,
+      og_image: page.og_image, hero_image: page.hero_image || '',
     })
     setSaving(false); setSaved(true)
     setTimeout(() => setSaved(false), 2000)
@@ -61,6 +61,7 @@ export default function SeoPage() {
               <MultiLangTextarea label="Meta Açıklama (Description)" rows={3}
                 values={{ tr: activePage.meta_description || '', en: activePage.meta_description_en || '', de: activePage.meta_description_de || '' }}
                 onChange={(v) => { const updated = pages.map(p => p.page_slug === activeSlug ? { ...p, meta_description: v.tr, meta_description_en: v.en, meta_description_de: v.de } : p); setPages(updated) }} />
+              <ImageUploader value={activePage.hero_image || ''} onChange={(v) => { const updated = pages.map(p => p.page_slug === activeSlug ? { ...p, hero_image: v } : p); setPages(updated) }} folder="heroes" label="Sayfa Hero Görseli" />
               <ImageUploader value={activePage.og_image || ''} onChange={(v) => { const updated = pages.map(p => p.page_slug === activeSlug ? { ...p, og_image: v } : p); setPages(updated) }} folder="seo" label="OG Image (Sosyal Medya Görseli)" />
               <div className="flex items-center gap-3">
                 <SaveButton loading={saving} />

@@ -4,7 +4,7 @@ import { getDictionary, hasLocale, type Locale } from "@/dictionaries";
 import PageHero from "@/components/ui/PageHero";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import ReservationCTA from "@/components/sections/ReservationCTA";
-import { getSettings } from "@/lib/queries";
+import { getSettings, getPageHeroImage } from "@/lib/queries";
 import { localize } from "@/lib/localize";
 import { Home, MapPin, Smile, Sun, Wifi, Coffee, Car, Globe } from "lucide-react";
 
@@ -22,7 +22,7 @@ const icons = [Home, MapPin, Smile, Sun, Wifi, Coffee, Car, Globe];
 export default async function HakkimizdaPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
   if (!hasLocale(lang)) notFound();
-  const [dict, settings] = await Promise.all([getDictionary(lang as Locale), getSettings()]);
+  const [dict, settings, heroImage] = await Promise.all([getDictionary(lang as Locale), getSettings(), getPageHeroImage('about')]);
 
   const ap = dict.aboutPage;
   const featureData = [
@@ -41,7 +41,7 @@ export default async function HakkimizdaPage({ params }: { params: Promise<{ lan
       <PageHero
         title={dict.about.label}
         subtitle={ap.subtitle}
-        imageUrl="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1920&q=80"
+        imageUrl={heroImage || "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1920&q=80"}
       />
       <section className="py-24 lg:py-32 bg-white">
         <div className="max-w-[1200px] mx-auto px-8">
