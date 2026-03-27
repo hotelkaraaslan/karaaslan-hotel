@@ -33,8 +33,10 @@ export default function AdminLogin() {
     <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
       <div className="bg-white rounded-xl shadow-lg p-8 w-full max-w-md">
         <div className="text-center mb-8">
-          <h1 className="text-2xl font-bold text-gray-900">Karaaslan Inn</h1>
-          <p className="text-gray-500 mt-1">Admin Panel</p>
+          <div className="bg-gray-900 rounded-xl p-4 inline-block mb-3">
+            <img src="/logo.png" alt="Karaaslan Inn" className="h-12 w-auto" />
+          </div>
+          <p className="text-gray-500">Admin Panel</p>
         </div>
 
         <form onSubmit={handleLogin} className="space-y-4">

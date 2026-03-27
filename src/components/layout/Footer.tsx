@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { MapPin, Phone, Mail } from "lucide-react";
 import type { Settings } from "@/lib/types";
 
@@ -62,12 +63,13 @@ export default function Footer({ dict, navDict, settings, lang, documents = [] }
       <div className="max-w-[1200px] mx-auto px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           <div>
-            <div className="font-[family-name:var(--font-heading)] text-xl font-bold text-white tracking-[3px] mb-1">
-              Karaaslan Inn
-            </div>
-            <span className="text-[0.6rem] tracking-[5px] uppercase text-white/40 block mb-5">
-              Hotel &bull; Kuşadası
-            </span>
+            <Image
+              src="/logo.png"
+              alt="Hotel By Karaaslan Inn"
+              width={180}
+              height={60}
+              className="h-14 w-auto mb-5"
+            />
             <p className="text-sm leading-7 mb-6">{dict.description}</p>
             <div className="flex gap-3">
               {settings.facebook_url && (

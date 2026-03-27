@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, X, Globe } from "lucide-react";
 
@@ -92,21 +93,17 @@ export default function Navbar({
         }`}
       >
         <div className="max-w-[1400px] mx-auto px-10 flex items-center justify-between">
-          <Link href={langPrefix || "/"} className="flex flex-col items-start">
-            <span
-              className={`font-[family-name:var(--font-heading)] text-2xl font-bold tracking-[3px] leading-tight transition-colors duration-400 ${
-                isTransparent ? "text-white" : "text-primary"
+          <Link href={langPrefix || "/"} className="flex items-center">
+            <Image
+              src="/logo.png"
+              alt="Hotel By Karaaslan Inn"
+              width={180}
+              height={60}
+              className={`h-12 w-auto transition-all duration-400 ${
+                isTransparent ? "" : "brightness-0"
               }`}
-            >
-              Karaaslan Inn
-            </span>
-            <span
-              className={`font-[family-name:var(--font-body)] text-[0.6rem] tracking-[5px] uppercase transition-colors duration-400 ${
-                isTransparent ? "text-white/70" : "text-text-light"
-              }`}
-            >
-              Hotel &bull; Kuşadası
-            </span>
+              priority
+            />
           </Link>
 
           <ul className="hidden lg:flex items-center gap-9">
