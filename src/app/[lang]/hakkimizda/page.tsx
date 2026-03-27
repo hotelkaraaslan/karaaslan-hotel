@@ -72,8 +72,8 @@ export default async function HakkimizdaPage({ params }: { params: Promise<{ lan
             {featureData.map((f, i) => {
               const Icon = icons[i];
               return (
-                <ScrollReveal key={f.title} delay={i * 100}>
-                  <div className="text-center p-6 bg-cream hover:-translate-y-1 hover:shadow-lg transition-all">
+                <ScrollReveal key={f.title} delay={i * 100} className="h-full">
+                  <div className="text-center p-6 bg-cream hover:-translate-y-1 hover:shadow-lg transition-all h-full">
                     <div className="w-14 h-14 mx-auto mb-4 flex items-center justify-center bg-white text-accent"><Icon size={24} /></div>
                     <h4 className="text-sm font-bold uppercase tracking-[1px] text-primary mb-2">{f.title}</h4>
                     <p className="text-sm text-text-light leading-6">{f.desc}</p>

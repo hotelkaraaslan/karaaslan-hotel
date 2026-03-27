@@ -37,8 +37,8 @@ export default async function KusadasiPage({ params }: { params: Promise<{ lang:
           </ScrollReveal>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {places.map((place, i) => (
-              <ScrollReveal key={place.id} delay={i * 100}>
-                <div className="group">
+              <ScrollReveal key={place.id} delay={i * 100} className="h-full">
+                <div className="group h-full">
                   <div className="relative h-[250px] overflow-hidden mb-5">
                     <Image src={place.image_url || "https://images.unsplash.com/photo-1623238913973-21e45cced554?w=600&q=80"} alt={localize(place, "title", lang)} fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 768px) 100vw, 33vw" />
                   </div>

@@ -25,8 +25,8 @@ export default function RoomsSection({ rooms, dict, lang }: RoomsSectionProps) {
         </ScrollReveal>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
           {rooms.map((room, i) => (
-            <ScrollReveal key={room.id} delay={i * 150}>
-              <Link href={`${lp}/odalar/${room.slug}`} className="block group bg-white overflow-hidden">
+            <ScrollReveal key={room.id} delay={i * 150} className="h-full">
+              <Link href={`${lp}/odalar/${room.slug}`} className="block group bg-white overflow-hidden h-full">
                 <div className="relative h-[300px] lg:h-[350px] overflow-hidden">
                   <Image src={room.image_url} alt={localize(room, "title", lang)} fill className="object-cover transition-transform duration-700 group-hover:scale-108" sizes="(max-width: 1024px) 100vw, 50vw" />
                   <div className="absolute bottom-0 left-0 right-0 p-5 bg-gradient-to-t from-black/60 to-transparent flex justify-end gap-4">
