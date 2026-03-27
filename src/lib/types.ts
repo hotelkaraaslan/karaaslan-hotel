@@ -1,6 +1,8 @@
 export interface Slider {
   id: string;
   title: string;
+  title_en?: string;
+  title_de?: string;
   subtitle: string | null;
   image_url: string;
   button_text: string;

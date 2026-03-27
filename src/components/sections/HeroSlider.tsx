@@ -33,6 +33,7 @@ export default function HeroSlider({ sliders, reservationUrl, dict, lang }: Hero
 
   if (!sliders.length) return null;
 
+  const currentTitle = localize(sliders[current], "title", lang) || "Hotel By Karaaslan Inn";
   const currentSubtitle = localize(sliders[current], "subtitle", lang) || dict.defaultSubtitle;
   const currentButtonText = localize(sliders[current], "button_text", lang) || dict.bookNow;
 
@@ -48,7 +49,7 @@ export default function HeroSlider({ sliders, reservationUrl, dict, lang }: Hero
         <div className="relative z-[2] text-center text-white max-w-[850px] px-8">
           <div className="hero-fade-1 text-sm font-medium tracking-[6px] uppercase text-accent mb-6">{dict.location}</div>
           <h1 className="hero-fade-2 font-[family-name:var(--font-heading)] text-5xl md:text-7xl lg:text-[5.5rem] font-bold leading-[1.1] mb-5">
-            Hotel By<br />Karaaslan Inn
+            {currentTitle}
           </h1>
           <p className="hero-fade-3 text-lg font-light leading-8 text-white/85 mb-11 max-w-xl mx-auto">
             {currentSubtitle}
