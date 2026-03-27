@@ -97,9 +97,9 @@ export default function Navbar({
             <Image
               src="/logo.png"
               alt="Hotel By Karaaslan Inn"
-              width={180}
-              height={60}
-              className={`h-12 w-auto transition-all duration-400 ${
+              width={220}
+              height={75}
+              className={`h-16 w-auto transition-all duration-400 ${
                 isTransparent ? "" : "brightness-0"
               }`}
               priority
