@@ -34,7 +34,7 @@ const nextConfig: NextConfig = {
       },
       {
         source: "/suit-oda",
-        destination: "/odalar/suit-oda",
+        destination: "/odalar/suite-oda",
         permanent: true,
       },
       // Catch any other .aspx pages
