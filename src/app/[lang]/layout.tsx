@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { getDictionary, hasLocale, type Locale } from "@/dictionaries";
 import { getSettings, getDocuments } from "@/lib/queries";
+import { getReservationUrl } from "@/lib/types";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import CookieConsent from "@/components/ui/CookieConsent";
@@ -30,7 +31,7 @@ export default async function LangLayout({
       <Navbar
         dict={dict.nav}
         lang={lang}
-        reservationUrl={settings.reservation_url}
+        reservationUrl={getReservationUrl(settings.reservation_url, lang)}
       />
       {children}
       <Footer dict={dict.footer} navDict={dict.nav} settings={settings} lang={lang} documents={documents} />

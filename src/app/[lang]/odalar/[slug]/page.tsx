@@ -6,6 +6,7 @@ import ScrollReveal from "@/components/ui/ScrollReveal";
 import ReservationCTA from "@/components/sections/ReservationCTA";
 import { getRoomBySlug, getRooms, getSettings } from "@/lib/queries";
 import { localize, localizeArray } from "@/lib/localize";
+import { getReservationUrl } from "@/lib/types";
 import { Check, Users, Maximize, Eye } from "lucide-react";
 
 export async function generateStaticParams() {
@@ -82,12 +83,12 @@ export default async function RoomDetailPage({ params }: { params: Promise<{ lan
               </div>
             )}
             <div className="text-center pt-8">
-              <a href={settings.reservation_url} target="_blank" rel="noopener noreferrer" className="inline-block px-12 py-4 bg-accent text-white text-xs font-semibold tracking-[3px] uppercase hover:bg-accent-dark transition-colors">{dict.rooms.bookThis}</a>
+              <a href={getReservationUrl(settings.reservation_url, lang)} target="_blank" rel="noopener noreferrer" className="inline-block px-12 py-4 bg-accent text-white text-xs font-semibold tracking-[3px] uppercase hover:bg-accent-dark transition-colors">{dict.rooms.bookThis}</a>
             </div>
           </ScrollReveal>
         </div>
       </section>
-      <ReservationCTA reservationUrl={settings.reservation_url} dict={dict.reservation} />
+      <ReservationCTA reservationUrl={getReservationUrl(settings.reservation_url, lang)} dict={dict.reservation} />
     </main>
   );
 }

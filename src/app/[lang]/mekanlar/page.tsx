@@ -7,6 +7,7 @@ import ScrollReveal from "@/components/ui/ScrollReveal";
 import ReservationCTA from "@/components/sections/ReservationCTA";
 import { getVenues, getSettings, getPageHeroImage } from "@/lib/queries";
 import { localize } from "@/lib/localize";
+import { getReservationUrl } from "@/lib/types";
 import { ArrowRight } from "lucide-react";
 
 export const revalidate = 60;
@@ -44,7 +45,7 @@ export default async function MekanlarPage({ params }: { params: Promise<{ lang:
           </ScrollReveal>
         ))}
       </section>
-      <ReservationCTA reservationUrl={settings.reservation_url} dict={dict.reservation} />
+      <ReservationCTA reservationUrl={getReservationUrl(settings.reservation_url, lang)} dict={dict.reservation} />
     </main>
   );
 }

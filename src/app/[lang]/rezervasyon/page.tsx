@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { getDictionary, hasLocale, type Locale } from "@/dictionaries";
 import { getSettings } from "@/lib/queries";
+import { getReservationUrl } from "@/lib/types";
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
@@ -9,7 +10,8 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   return { title: dict.meta.reservationTitle };
 }
 
-export default async function ReservasyonPage() {
+export default async function ReservasyonPage({ params }: { params: Promise<{ lang: string }> }) {
+  const { lang } = await params;
   const settings = await getSettings();
-  redirect(settings.reservation_url);
+  redirect(getReservationUrl(settings.reservation_url, lang));
 }

@@ -9,6 +9,7 @@ import GallerySection from "@/components/sections/GallerySection";
 import KusadasiSection from "@/components/sections/KusadasiSection";
 import ReservationCTA from "@/components/sections/ReservationCTA";
 import { getSliders, getRooms, getVenues, getGallery, getPlaces, getSettings } from "@/lib/queries";
+import { getReservationUrl } from "@/lib/types";
 
 export const revalidate = 60;
 
@@ -28,16 +29,18 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
     getSliders(), getRooms(), getVenues(), getGallery(), getPlaces(), getSettings(),
   ]);
 
+  const resUrl = getReservationUrl(settings.reservation_url, lang);
+
   return (
     <main>
-      <HeroSlider sliders={sliders} reservationUrl={settings.reservation_url} dict={dict.hero} lang={lang} />
-      <BookingBar reservationUrl={settings.reservation_url} dict={dict.booking} />
+      <HeroSlider sliders={sliders} reservationUrl={resUrl} dict={dict.hero} lang={lang} />
+      <BookingBar reservationUrl={resUrl} dict={dict.booking} />
       <AboutSection settings={settings} dict={dict.about} lang={lang} />
       <RoomsSection rooms={rooms} dict={dict.rooms} lang={lang} />
       <VenuesSection venues={venues} dict={dict.venues} lang={lang} />
       <GallerySection images={gallery} dict={dict.gallery} lang={lang} />
       <KusadasiSection places={places} settings={settings} dict={dict.kusadasi} lang={lang} />
-      <ReservationCTA reservationUrl={settings.reservation_url} dict={dict.reservation} />
+      <ReservationCTA reservationUrl={resUrl} dict={dict.reservation} />
     </main>
   );
 }

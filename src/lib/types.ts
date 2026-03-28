@@ -133,6 +133,13 @@ export interface TrackingCode {
   updated_at?: string;
 }
 
+export function getReservationUrl(baseUrl: string, lang: string): string {
+  const url = baseUrl.replace(/\/+$/, "");
+  if (lang === "en") return `${url}/en/`;
+  if (lang === "de") return `${url}/de/`;
+  return `${url}/`;
+}
+
 export interface SeoSettings {
   id: string;
   page_slug: string;

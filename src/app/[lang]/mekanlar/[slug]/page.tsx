@@ -6,6 +6,7 @@ import ScrollReveal from "@/components/ui/ScrollReveal";
 import ReservationCTA from "@/components/sections/ReservationCTA";
 import { getVenueBySlug, getVenues, getSettings } from "@/lib/queries";
 import { localize } from "@/lib/localize";
+import { getReservationUrl } from "@/lib/types";
 
 export async function generateStaticParams() {
   const venues = await getVenues();
@@ -45,7 +46,7 @@ export default async function VenueDetailPage({ params }: { params: Promise<{ la
           </ScrollReveal>
         </div>
       </section>
-      <ReservationCTA reservationUrl={settings.reservation_url} dict={dict.reservation} />
+      <ReservationCTA reservationUrl={getReservationUrl(settings.reservation_url, lang)} dict={dict.reservation} />
     </main>
   );
 }

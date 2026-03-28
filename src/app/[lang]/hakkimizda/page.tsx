@@ -6,6 +6,7 @@ import ScrollReveal from "@/components/ui/ScrollReveal";
 import ReservationCTA from "@/components/sections/ReservationCTA";
 import { getSettings, getPageHeroImage } from "@/lib/queries";
 import { localize } from "@/lib/localize";
+import { getReservationUrl } from "@/lib/types";
 import { Home, MapPin, Smile, Sun, Wifi, Coffee, Car, Globe } from "lucide-react";
 
 export const revalidate = 60;
@@ -84,7 +85,7 @@ export default async function HakkimizdaPage({ params }: { params: Promise<{ lan
           </div>
         </div>
       </section>
-      <ReservationCTA reservationUrl={settings.reservation_url} dict={dict.reservation} />
+      <ReservationCTA reservationUrl={getReservationUrl(settings.reservation_url, lang)} dict={dict.reservation} />
     </main>
   );
 }

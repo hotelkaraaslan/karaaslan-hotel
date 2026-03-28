@@ -7,6 +7,7 @@ import ScrollReveal from "@/components/ui/ScrollReveal";
 import ReservationCTA from "@/components/sections/ReservationCTA";
 import { getRooms, getSettings, getPageHeroImage } from "@/lib/queries";
 import { localize, localizeArray } from "@/lib/localize";
+import { getReservationUrl } from "@/lib/types";
 import { Eye, Layers, ArrowRight, Check } from "lucide-react";
 
 export const revalidate = 60;
@@ -52,7 +53,7 @@ export default async function OdalarPage({ params }: { params: Promise<{ lang: s
                   )}
                   <div className="flex gap-4 flex-wrap">
                     <Link href={`${lp}/odalar/${room.slug}`} className="inline-flex items-center gap-2.5 text-xs font-semibold tracking-[2px] uppercase text-accent hover:gap-4 transition-all">{dict.rooms.viewDetails}<ArrowRight size={18} /></Link>
-                    <a href={settings.reservation_url} target="_blank" rel="noopener noreferrer" className="inline-block px-8 py-3 bg-accent text-white text-xs font-semibold tracking-[2px] uppercase hover:bg-accent-dark transition-colors">{dict.nav.reservation}</a>
+                    <a href={getReservationUrl(settings.reservation_url, lang)} target="_blank" rel="noopener noreferrer" className="inline-block px-8 py-3 bg-accent text-white text-xs font-semibold tracking-[2px] uppercase hover:bg-accent-dark transition-colors">{dict.nav.reservation}</a>
                   </div>
                 </div>
               </div>
@@ -60,7 +61,7 @@ export default async function OdalarPage({ params }: { params: Promise<{ lang: s
           ))}
         </div>
       </section>
-      <ReservationCTA reservationUrl={settings.reservation_url} dict={dict.reservation} />
+      <ReservationCTA reservationUrl={getReservationUrl(settings.reservation_url, lang)} dict={dict.reservation} />
     </main>
   );
 }
