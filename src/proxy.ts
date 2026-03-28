@@ -5,8 +5,25 @@ import { createServerClient } from "@supabase/ssr";
 const locales = ["tr", "en", "de"];
 const defaultLocale = "tr";
 
+const subdomainRedirects: Record<string, string> = {
+  eng: "/en",
+  ger: "/de",
+};
+
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
+
+  // Subdomain language redirects (eng.karaaslanhotels.com → /en, ger.karaaslanhotels.com → /de)
+  const hostname = request.headers.get("host") || "";
+  const subdomain = hostname.split(".")[0];
+  const langPrefix = subdomainRedirects[subdomain];
+  if (langPrefix) {
+    const search = request.nextUrl.search;
+    return NextResponse.redirect(
+      `https://www.karaaslanhotels.com${langPrefix}${pathname === "/" ? "" : pathname}${search}`,
+      301
+    );
+  }
 
   // Admin routes - check authentication
   if (pathname.startsWith("/admin")) {
