@@ -34,7 +34,7 @@ export default async function LangLayout({
       />
       {children}
       <Footer dict={dict.footer} navDict={dict.nav} settings={settings} lang={lang} documents={documents} />
-      <CookieConsent dict={dict.cookie} />
+      <CookieConsent dict={dict.cookie} documents={documents} lang={lang} />
     </>
   );
 }

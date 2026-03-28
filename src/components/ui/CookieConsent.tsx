@@ -2,6 +2,14 @@
 
 import { useState, useEffect } from "react";
 
+interface Document {
+  id: string;
+  title: string;
+  title_en?: string;
+  title_de?: string;
+  file_url: string;
+}
+
 interface CookieConsentProps {
   dict: {
     message: string;
@@ -9,10 +17,17 @@ interface CookieConsentProps {
     decline: string;
     learnMore: string;
   };
-  privacyUrl?: string;
+  documents?: Document[];
+  lang?: string;
 }
 
-export default function CookieConsent({ dict, privacyUrl }: CookieConsentProps) {
+function localize(doc: Document, lang: string): string {
+  if (lang === "en" && doc.title_en) return doc.title_en;
+  if (lang === "de" && doc.title_de) return doc.title_de;
+  return doc.title;
+}
+
+export default function CookieConsent({ dict, documents = [], lang = "tr" }: CookieConsentProps) {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -42,20 +57,25 @@ export default function CookieConsent({ dict, privacyUrl }: CookieConsentProps) 
           {/* Cookie icon + message */}
           <div className="flex items-start gap-3 flex-1">
             <span className="text-2xl shrink-0 mt-0.5">🍪</span>
-            <p className="text-sm text-gray-700 leading-relaxed">
-              {dict.message}
-              {privacyUrl && (
-                <>
-                  {" "}
+            <div className="text-sm text-gray-700 leading-relaxed">
+              <p>{dict.message}</p>
+              {(() => {
+                const privacyDoc = documents.find((doc) => {
+                  const title = `${doc.title} ${doc.title_en ?? ""} ${doc.title_de ?? ""}`.toLowerCase();
+                  return title.includes("gizlilik") || title.includes("privacy") || title.includes("datenschutz") || title.includes("çerez") || title.includes("cookie");
+                });
+                return privacyDoc ? (
                   <a
-                    href={privacyUrl}
-                    className="underline text-amber-700 hover:text-amber-800 font-medium"
+                    href={privacyDoc.file_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline text-amber-700 hover:text-amber-800 font-medium text-xs mt-1 inline-block"
                   >
-                    {dict.learnMore}
+                    {localize(privacyDoc, lang)}
                   </a>
-                </>
-              )}
-            </p>
+                ) : null;
+              })()}
+            </div>
           </div>
 
           {/* Buttons */}
