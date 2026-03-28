@@ -140,6 +140,12 @@
     "f_multilingual": "Multilingual Service",
     "f_multilingualDesc": "Turkish, English and German support"
   },
+  "cookie": {
+    "message": "This website uses cookies to ensure you get the best experience.",
+    "accept": "Accept",
+    "decline": "Decline",
+    "learnMore": "Learn More"
+  },
   "meta": {
     "homeTitle": "Hotel By Karaaslan Inn | Kuşadası",
     "homeDesc": "Hotel By Karaaslan Inn - Luxury accommodation with sea views in Kuşadası. Enjoy the unique beauties of the Aegean.",

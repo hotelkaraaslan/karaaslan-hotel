@@ -140,6 +140,12 @@
     "f_multilingual": "Çok Dilli Hizmet",
     "f_multilingualDesc": "Türkçe, İngilizce ve Almanca destek"
   },
+  "cookie": {
+    "message": "Bu web sitesi, size en iyi deneyimi sunmak için çerezleri kullanmaktadır.",
+    "accept": "Kabul Et",
+    "decline": "Reddet",
+    "learnMore": "Daha Fazla Bilgi"
+  },
   "meta": {
     "homeTitle": "Hotel By Karaaslan Inn | Kuşadası",
     "homeDesc": "Hotel By Karaaslan Inn - Kuşadası'nda deniz manzaralı lüks konaklama deneyimi. Ege'nin eşsiz güzelliklerinin keyfini çıkarın.",

@@ -3,6 +3,7 @@ import { getDictionary, hasLocale, type Locale } from "@/dictionaries";
 import { getSettings, getDocuments } from "@/lib/queries";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import CookieConsent from "@/components/ui/CookieConsent";
 
 export async function generateStaticParams() {
   return [{ lang: "tr" }, { lang: "en" }, { lang: "de" }];
@@ -33,6 +34,7 @@ export default async function LangLayout({
       />
       {children}
       <Footer dict={dict.footer} navDict={dict.nav} settings={settings} lang={lang} documents={documents} />
+      <CookieConsent dict={dict.cookie} />
     </>
   );
 }
