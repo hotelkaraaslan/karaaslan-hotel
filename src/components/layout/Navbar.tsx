@@ -164,7 +164,7 @@ export default function Navbar({
                   className={`inline-flex items-center gap-2 px-5 py-2.5 text-[0.7rem] font-semibold tracking-[2px] uppercase transition-all duration-400 bg-accent text-white hover:bg-accent-dark`}
                 >
                   <Phone size={13} />
-                  Hemen Ara
+                  <span>Hemen Ara<span className="block text-[0.65rem] font-normal tracking-normal normal-case opacity-90">{phone}</span></span>
                 </a>
               </li>
             )}
