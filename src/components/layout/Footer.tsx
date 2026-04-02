@@ -119,7 +119,7 @@ export default function Footer({ dict, navDict, settings, lang, documents = [] }
               </li>
               <li className="flex items-start gap-3 text-sm">
                 <Phone size={16} className="text-accent min-w-4 mt-1" />
-                <a href={`tel:${settings.phone}`} onClick={() => (window as any).gtag?.('event', 'conversion', { send_to: 'AW-1206137271/PHONE_CALL_LEAD' })} className="hover:text-accent transition-colors">{settings.phone}</a>
+                <a href={`tel:${settings.phone}`} className="hover:text-accent transition-colors">{settings.phone}</a>
               </li>
               <li className="flex items-start gap-3 text-sm">
                 <Mail size={16} className="text-accent min-w-4 mt-1" />
