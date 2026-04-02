@@ -63,7 +63,7 @@ export default async function IletisimPage({ params }: { params: Promise<{ lang:
                     </div>
                     <div>
                       <h4 className="text-sm font-bold uppercase tracking-[1px] text-primary mb-1">{ct.phone}</h4>
-                      <a href={`tel:${settings.phone}`} onClick={() => (window as any).gtag?.('event', 'conversion', { send_to: 'AW-1206137271/PHONE_CALL_LEAD' })} className="text-sm text-text-light hover:text-accent transition-colors block">{settings.phone}</a>
+                      <a href={`tel:${settings.phone}`} className="text-sm text-text-light hover:text-accent transition-colors block">{settings.phone}</a>
                       <a href="tel:+905439579009" className="text-sm text-text-light hover:text-accent transition-colors block mt-1">+90 543 957 90 09</a>
                     </div>
                   </div>
