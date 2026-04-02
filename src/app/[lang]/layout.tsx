@@ -5,6 +5,7 @@ import { getReservationUrl } from "@/lib/types";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import CookieConsent from "@/components/ui/CookieConsent";
+import WhatsAppButton from "@/components/ui/WhatsAppButton";
 
 export async function generateStaticParams() {
   return [{ lang: "tr" }, { lang: "en" }, { lang: "de" }];
@@ -32,9 +33,11 @@ export default async function LangLayout({
         dict={dict.nav}
         lang={lang}
         reservationUrl={getReservationUrl(settings.reservation_url, lang)}
+        phone={settings.phone}
       />
       {children}
       <Footer dict={dict.footer} navDict={dict.nav} settings={settings} lang={lang} documents={documents} />
+      <WhatsAppButton />
       <CookieConsent dict={dict.cookie} documents={documents} lang={lang} />
     </>
   );

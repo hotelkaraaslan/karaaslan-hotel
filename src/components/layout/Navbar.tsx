@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Menu, X, Globe } from "lucide-react";
+import { Menu, X, Globe, Phone } from "lucide-react";
 
 interface NavDict {
   about: string;
@@ -21,6 +21,7 @@ interface NavbarProps {
   dict: NavDict;
   lang: string;
   reservationUrl?: string;
+  phone?: string;
 }
 
 const langLabels: Record<string, string> = {
@@ -33,6 +34,7 @@ export default function Navbar({
   dict,
   lang,
   reservationUrl = "https://by-karaaslan-inn1.rezervasyonal.com/",
+  phone,
 }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -155,6 +157,18 @@ export default function Navbar({
               )}
             </li>
 
+            {phone && (
+              <li>
+                <a
+                  href={`tel:${phone}`}
+                  className={`inline-flex items-center gap-2 px-5 py-2.5 text-[0.7rem] font-semibold tracking-[2px] uppercase transition-all duration-400 bg-accent text-white hover:bg-accent-dark`}
+                >
+                  <Phone size={13} />
+                  Hemen Ara
+                </a>
+              </li>
+            )}
+
             <li>
               <a
                 href={reservationUrl}
@@ -225,6 +239,17 @@ export default function Navbar({
         >
           {dict.reservation}
         </a>
+
+        {phone && (
+          <a
+            href={`tel:${phone}`}
+            onClick={() => setMobileOpen(false)}
+            className="flex items-center gap-3 px-10 py-4 border-[1.5px] border-white/30 text-white text-sm font-semibold tracking-[3px] uppercase hover:border-accent hover:text-accent transition-colors"
+          >
+            <Phone size={16} />
+            {phone}
+          </a>
+        )}
       </div>
     </>
   );
