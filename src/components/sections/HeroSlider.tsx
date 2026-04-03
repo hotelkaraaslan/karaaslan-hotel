@@ -9,9 +9,10 @@ interface HeroSliderProps {
   reservationUrl: string;
   dict: { location: string; defaultSubtitle: string; bookNow: string; ourRooms: string; explore: string };
   lang: string;
+  phone?: string;
 }
 
-export default function HeroSlider({ sliders, reservationUrl, dict, lang }: HeroSliderProps) {
+export default function HeroSlider({ sliders, reservationUrl, dict, lang, phone }: HeroSliderProps) {
   const [current, setCurrent] = useState(0);
   const [loaded, setLoaded] = useState(false);
   const langPrefix = lang === "tr" ? "" : `/${lang}`;
@@ -47,6 +48,15 @@ export default function HeroSlider({ sliders, reservationUrl, dict, lang }: Hero
       <div className="absolute inset-0 bg-gradient-to-b from-[rgba(10,30,40,0.4)] via-[rgba(10,30,40,0.5)] to-[rgba(10,30,40,0.7)] z-[1]" />
       {loaded && (
         <div className="relative z-[2] text-center text-white max-w-[850px] px-8">
+          {phone && (
+            <a
+              href={`tel:${phone}`}
+              className="lg:hidden hero-fade-1 inline-flex items-center gap-2 px-6 py-2.5 mb-8 bg-accent text-white text-xs font-semibold tracking-[2px] uppercase"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.65 3.4 2 2 0 0 1 3.62 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.59a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16z"/></svg>
+              Hemen Ara · {phone}
+            </a>
+          )}
           <div className="hero-fade-1 text-sm font-medium tracking-[6px] uppercase text-accent mb-6">{dict.location}</div>
           <h1 className="hero-fade-2 font-[family-name:var(--font-heading)] text-5xl md:text-7xl lg:text-[5.5rem] font-normal leading-[1.1] mb-5">
             {currentTitle}

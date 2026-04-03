@@ -199,21 +199,6 @@ export default function Navbar({
         </div>
       </nav>
 
-      {/* Mobile call bar - only visible on mobile, below navbar */}
-      {phone && (
-        <div className={`lg:hidden fixed left-0 right-0 z-40 flex justify-center transition-all duration-400 ${isTransparent ? "top-[5.5rem]" : "top-[4.2rem]"}`}>
-          <a
-            href={`tel:${phone}`}
-            className="flex items-center gap-2 px-6 py-2 bg-accent text-white text-xs font-semibold tracking-[2px] uppercase shadow-md"
-          >
-            <Phone size={13} />
-            <span>Hemen Ara</span>
-            <span className="opacity-80">·</span>
-            <span className="font-normal tracking-normal normal-case">{phone}</span>
-          </a>
-        </div>
-      )}
-
       <div
         className={`fixed inset-0 bg-primary z-40 flex flex-col items-center justify-center gap-8 transition-all duration-400 ${
           mobileOpen ? "opacity-100 visible" : "opacity-0 invisible"

@@ -33,7 +33,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
 
   return (
     <main>
-      <HeroSlider sliders={sliders} reservationUrl={resUrl} dict={dict.hero} lang={lang} />
+      <HeroSlider sliders={sliders} reservationUrl={resUrl} dict={dict.hero} lang={lang} phone={settings.phone} />
       <BookingBar reservationUrl={resUrl} dict={dict.booking} />
       <AboutSection settings={settings} dict={dict.about} lang={lang} />
       <RoomsSection rooms={rooms} dict={dict.rooms} lang={lang} />
