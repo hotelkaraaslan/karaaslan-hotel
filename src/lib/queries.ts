@@ -110,6 +110,16 @@ export async function getSeoBySlug(slug: string) {
   return data;
 }
 
+export async function getCertificates() {
+  const { data, error } = await supabase
+    .from("certificates")
+    .select("*")
+    .eq("is_active", true)
+    .order("display_order");
+  if (error) return [];
+  return data ?? [];
+}
+
 export async function getPageHeroImage(pageSlug: string): Promise<string | null> {
   const { data, error } = await supabase
     .from("seo_settings")

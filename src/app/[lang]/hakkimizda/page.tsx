@@ -4,7 +4,7 @@ import { getDictionary, hasLocale, type Locale } from "@/dictionaries";
 import PageHero from "@/components/ui/PageHero";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import ReservationCTA from "@/components/sections/ReservationCTA";
-import { getSettings, getPageHeroImage } from "@/lib/queries";
+import { getSettings, getPageHeroImage, getCertificates } from "@/lib/queries";
 import { localize } from "@/lib/localize";
 import { getReservationUrl } from "@/lib/types";
 import { Home, MapPin, Smile, Sun, Wifi, Coffee, Car, Globe } from "lucide-react";
@@ -23,7 +23,7 @@ const icons = [Home, MapPin, Smile, Sun, Wifi, Coffee, Car, Globe];
 export default async function HakkimizdaPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
   if (!hasLocale(lang)) notFound();
-  const [dict, settings, heroImage] = await Promise.all([getDictionary(lang as Locale), getSettings(), getPageHeroImage('about')]);
+  const [dict, settings, heroImage, certificates] = await Promise.all([getDictionary(lang as Locale), getSettings(), getPageHeroImage('about'), getCertificates()]);
 
   const ap = dict.aboutPage;
   const featureData = [
@@ -85,6 +85,35 @@ export default async function HakkimizdaPage({ params }: { params: Promise<{ lan
           </div>
         </div>
       </section>
+      {certificates.length > 0 && (
+        <section className="py-20 bg-cream">
+          <div className="max-w-[1200px] mx-auto px-8">
+            <ScrollReveal>
+              <div className="text-center mb-14">
+                <span className="text-xs font-semibold tracking-[4px] uppercase text-accent mb-4 block">
+                  {lang === 'en' ? 'Certificates' : lang === 'de' ? 'Zertifikate' : 'Belgelerimiz'}
+                </span>
+                <h2 className="font-[family-name:var(--font-heading)] text-3xl font-semibold text-primary mb-6">
+                  {lang === 'en' ? 'Our Certificates' : lang === 'de' ? 'Unsere Zertifikate' : 'Sertifikalarımız'}
+                </h2>
+                <div className="w-16 h-0.5 bg-accent mx-auto" />
+              </div>
+            </ScrollReveal>
+            <div className="flex flex-wrap justify-center gap-8">
+              {certificates.map((cert: { id: string; title: string; image_url: string }, i: number) => (
+                <ScrollReveal key={cert.id} delay={i * 80}>
+                  <div className="flex flex-col items-center">
+                    <div className="bg-white p-4 shadow-sm hover:shadow-md transition-shadow">
+                      <img src={cert.image_url} alt={cert.title || 'Sertifika'} className="h-40 w-auto object-contain max-w-[200px]" />
+                    </div>
+                    {cert.title && <p className="mt-3 text-xs text-center font-medium text-text-light uppercase tracking-[1px] max-w-[200px]">{cert.title}</p>}
+                  </div>
+                </ScrollReveal>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
       <ReservationCTA reservationUrl={getReservationUrl(settings.reservation_url, lang)} dict={dict.reservation} />
     </main>
   );
