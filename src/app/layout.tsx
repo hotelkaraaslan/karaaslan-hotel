@@ -67,7 +67,17 @@ export default async function RootLayout({
           </>
         )}
         {/* Google Ads */}
-        {adsCode && (
+        {adsCode && !ga4Code && (
+          <>
+            <script async src={`https://www.googletagmanager.com/gtag/js?id=${adsCode.code_value}`} />
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${adsCode.code_value}');`,
+              }}
+            />
+          </>
+        )}
+        {adsCode && ga4Code && (
           <script
             dangerouslySetInnerHTML={{
               __html: `gtag('config','${adsCode.code_value}');`,
@@ -104,6 +114,10 @@ export default async function RootLayout({
         {customBody.map((code) => (
           <script key={code.id} dangerouslySetInnerHTML={{ __html: code.code_value }} />
         ))}
+        {/* Phone click conversion tracking */}
+        {adsCode && (
+          <script dangerouslySetInnerHTML={{ __html: `document.addEventListener('click',function(e){var a=e.target.closest('a[href^="tel:"]');if(a&&window.gtag){window.gtag('event','conversion',{send_to:'AW-11117083356/J3oZCLPk5MsaENz1hLUp',value:1.0,currency:'TRY'});}});` }} />
+        )}
       </body>
     </html>
   );

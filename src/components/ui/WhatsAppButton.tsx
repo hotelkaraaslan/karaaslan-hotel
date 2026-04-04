@@ -10,6 +10,7 @@ export default function WhatsAppButton() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="WhatsApp ile iletişime geç"
+      onClick={() => { try { (window as any).gtag?.('event', 'conversion', { send_to: 'AW-11117083356/gm6GCIDU6uMZENz1hLUp' }); } catch {} }}
       className="fixed bottom-6 right-6 z-[9998] flex items-center justify-center w-14 h-14 rounded-full shadow-lg hover:scale-110 transition-transform duration-300"
       style={{ backgroundColor: "#25D366" }}
     >
