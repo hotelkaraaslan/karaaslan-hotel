@@ -51,7 +51,7 @@ export default function DocumentsPage() {
     try {
       const url = await uploadFile(file)
       setNewDoc({ ...newDoc, file_url: url })
-    } catch { alert('Yükleme hatası') }
+    } catch (err: any) { alert('Yükleme hatası: ' + (err?.message || JSON.stringify(err))) }
     setUploading(false)
   }
 
@@ -72,7 +72,7 @@ export default function DocumentsPage() {
     try {
       const url = await uploadFile(file)
       setEditItem({ ...editItem, file_url: url })
-    } catch { alert('Yükleme hatası') }
+    } catch (err: any) { alert('Yükleme hatası: ' + (err?.message || JSON.stringify(err))) }
     setUploading(false)
   }
 
