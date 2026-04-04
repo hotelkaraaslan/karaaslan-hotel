@@ -37,7 +37,11 @@ export default function DocumentsPage() {
   }
 
   async function uploadFile(file: File): Promise<string> {
-    const fileName = `documents/${Date.now()}-${file.name}`
+    const safeName = file.name
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      .replace(/[ğĞüÜşŞıİöÖçÇ]/g, (c) => ({ ğ:'g',Ğ:'G',ü:'u',Ü:'U',ş:'s',Ş:'S',ı:'i',İ:'I',ö:'o',Ö:'O',ç:'c',Ç:'C' }[c] || c))
+      .replace(/[^a-zA-Z0-9._-]/g, '_')
+    const fileName = `documents/${Date.now()}-${safeName}`
     const { error } = await supabase.storage.from('images').upload(fileName, file)
     if (error) throw error
     const { data: { publicUrl } } = supabase.storage.from('images').getPublicUrl(fileName)
