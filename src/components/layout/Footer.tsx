@@ -56,6 +56,7 @@ export default function Footer({ dict, navDict, settings, lang, documents = [] }
     { href: `${lp}/galeri`, label: navDict.gallery },
     { href: `${lp}/kusadasi`, label: navDict.kusadasi },
     { href: `${lp}/iletisim`, label: navDict.contact },
+    { href: `${lp}/blog`, label: 'Blog' },
   ];
 
   return (

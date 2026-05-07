@@ -205,6 +205,38 @@ export async function deleteTrackingCode(id: string) {
   await revalidateSite()
 }
 
+// ===== BLOG POSTS =====
+export async function getBlogPostsAdmin() {
+  const { data, error } = await getSupabase().from('blog_posts').select('*').order('published_at', { ascending: false })
+  if (error) throw error
+  return data ?? []
+}
+
+export async function getBlogPostAdmin(id: string) {
+  const { data, error } = await getSupabase().from('blog_posts').select('*').eq('id', id).single()
+  if (error) throw error
+  return data
+}
+
+export async function createBlogPost(values: Record<string, unknown>) {
+  const { data, error } = await getSupabase().from('blog_posts').insert(values).select().single()
+  if (error) throw error
+  await revalidateSite()
+  return data
+}
+
+export async function updateBlogPost(id: string, values: Record<string, unknown>) {
+  const { error } = await getSupabase().from('blog_posts').update(values).eq('id', id)
+  if (error) throw error
+  await revalidateSite()
+}
+
+export async function deleteBlogPost(id: string) {
+  const { error } = await getSupabase().from('blog_posts').delete().eq('id', id)
+  if (error) throw error
+  await revalidateSite()
+}
+
 // ===== SEO SETTINGS =====
 export async function getSeoSettingsAdmin() {
   const { data, error } = await getSupabase().from('seo_settings').select('*').order('page_slug')

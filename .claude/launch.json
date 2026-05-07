@@ -3,8 +3,8 @@
   "configurations": [
     {
       "name": "nextdev",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev"],
+      "runtimeExecutable": "/usr/local/bin/node",
+      "runtimeArgs": ["/Users/dincerbasdemir/Desktop/Claude01/karaaslan-hotel-next/node_modules/.bin/next", "dev"],
       "port": 3000
     }
   ]

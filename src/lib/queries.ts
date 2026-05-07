@@ -110,6 +110,27 @@ export async function getSeoBySlug(slug: string) {
   return data;
 }
 
+export async function getBlogPosts() {
+  const { data, error } = await supabase
+    .from("blog_posts")
+    .select("id, title, slug, excerpt, cover_image, published_at")
+    .eq("is_active", true)
+    .order("published_at", { ascending: false });
+  if (error) return [];
+  return data ?? [];
+}
+
+export async function getBlogPostBySlug(slug: string) {
+  const { data, error } = await supabase
+    .from("blog_posts")
+    .select("*")
+    .eq("slug", slug)
+    .eq("is_active", true)
+    .single();
+  if (error) return null;
+  return data;
+}
+
 export async function getCertificates() {
   const { data, error } = await supabase
     .from("certificates")
