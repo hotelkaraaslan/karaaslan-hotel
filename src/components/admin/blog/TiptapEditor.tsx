@@ -5,6 +5,10 @@ import StarterKit from '@tiptap/starter-kit'
 import Underline from '@tiptap/extension-underline'
 import Link from '@tiptap/extension-link'
 import Placeholder from '@tiptap/extension-placeholder'
+import Table from '@tiptap/extension-table'
+import TableRow from '@tiptap/extension-table-row'
+import TableCell from '@tiptap/extension-table-cell'
+import TableHeader from '@tiptap/extension-table-header'
 import { useEffect } from 'react'
 
 interface TiptapEditorProps {
@@ -26,12 +30,14 @@ const ToolbarBtn = ({ onClick, active, title, children }: { onClick: () => void;
 export default function TiptapEditor({ content, onChange }: TiptapEditorProps) {
   const editor = useEditor({
     extensions: [
-      StarterKit.configure({
-        heading: { levels: [2, 3] },
-      }),
+      StarterKit.configure({ heading: { levels: [2, 3] } }),
       Underline,
       Link.configure({ openOnClick: false }),
       Placeholder.configure({ placeholder: 'Blog yazısını buraya yazın...' }),
+      Table.configure({ resizable: true }),
+      TableRow,
+      TableHeader,
+      TableCell,
     ],
     content,
     onUpdate: ({ editor }) => onChange(editor.getHTML()),
@@ -57,6 +63,10 @@ export default function TiptapEditor({ content, onChange }: TiptapEditorProps) {
     editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run()
   }
 
+  const insertTable = () => {
+    editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run()
+  }
+
   return (
     <div className="border border-gray-300 rounded-lg overflow-hidden">
       {/* Toolbar */}
@@ -75,6 +85,18 @@ export default function TiptapEditor({ content, onChange }: TiptapEditorProps) {
         <ToolbarBtn onClick={() => editor.chain().focus().toggleBlockquote().run()} active={editor.isActive('blockquote')} title="Alıntı">" "</ToolbarBtn>
         <ToolbarBtn onClick={() => editor.chain().focus().setHorizontalRule().run()} title="Yatay Çizgi">—</ToolbarBtn>
         <div className="w-px bg-gray-300 mx-1" />
+        {/* Tablo */}
+        <ToolbarBtn onClick={insertTable} active={editor.isActive('table')} title="Tablo Ekle">⊞ Tablo</ToolbarBtn>
+        {editor.isActive('table') && (
+          <>
+            <ToolbarBtn onClick={() => editor.chain().focus().addColumnAfter().run()} title="Sütun Ekle">+Sütun</ToolbarBtn>
+            <ToolbarBtn onClick={() => editor.chain().focus().addRowAfter().run()} title="Satır Ekle">+Satır</ToolbarBtn>
+            <ToolbarBtn onClick={() => editor.chain().focus().deleteColumn().run()} title="Sütun Sil">-Sütun</ToolbarBtn>
+            <ToolbarBtn onClick={() => editor.chain().focus().deleteRow().run()} title="Satır Sil">-Satır</ToolbarBtn>
+            <ToolbarBtn onClick={() => editor.chain().focus().deleteTable().run()} title="Tabloyu Sil">🗑 Tablo</ToolbarBtn>
+          </>
+        )}
+        <div className="w-px bg-gray-300 mx-1" />
         <ToolbarBtn onClick={() => editor.chain().focus().undo().run()} title="Geri Al">↩</ToolbarBtn>
         <ToolbarBtn onClick={() => editor.chain().focus().redo().run()} title="İleri Al">↪</ToolbarBtn>
       </div>
@@ -82,6 +104,14 @@ export default function TiptapEditor({ content, onChange }: TiptapEditorProps) {
       <div className="bg-white">
         <EditorContent editor={editor} />
       </div>
+      {/* Tablo stilleri */}
+      <style>{`
+        .ProseMirror table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
+        .ProseMirror th, .ProseMirror td { border: 1px solid #d1d5db; padding: 8px 12px; text-align: left; min-width: 80px; }
+        .ProseMirror th { background: #f9fafb; font-weight: 600; }
+        .ProseMirror .selectedCell { background: #fef3c7; }
+        .ProseMirror .column-resize-handle { background-color: #c9a96e; width: 2px; cursor: col-resize; }
+      `}</style>
     </div>
   )
 }
