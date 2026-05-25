@@ -24,6 +24,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...urls('/kusadasi', 0.7, 'monthly'),
     ...urls('/iletisim', 0.8, 'monthly'),
     ...urls('/blog', 0.8, 'weekly'),
+    ...urls('/kurumsal', 0.8, 'monthly'),
   ]
 
   // Dinamik: Odalar

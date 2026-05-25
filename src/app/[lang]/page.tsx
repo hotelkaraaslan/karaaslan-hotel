@@ -8,6 +8,7 @@ import VenuesSection from "@/components/sections/VenuesSection";
 import GallerySection from "@/components/sections/GallerySection";
 import KusadasiSection from "@/components/sections/KusadasiSection";
 import ReservationCTA from "@/components/sections/ReservationCTA";
+import CorporateSection from "@/components/sections/CorporateSection";
 import { getSliders, getRooms, getVenues, getGallery, getPlaces, getSettings } from "@/lib/queries";
 import { getReservationUrl } from "@/lib/types";
 
@@ -37,6 +38,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
       <BookingBar reservationUrl={resUrl} dict={dict.booking} />
       <AboutSection settings={settings} dict={dict.about} lang={lang} />
       <RoomsSection rooms={rooms} dict={dict.rooms} lang={lang} />
+      <CorporateSection lang={lang} />
       <VenuesSection venues={venues} dict={dict.venues} lang={lang} />
       <GallerySection images={gallery} dict={dict.gallery} lang={lang} />
       <KusadasiSection places={places} settings={settings} dict={dict.kusadasi} lang={lang} />

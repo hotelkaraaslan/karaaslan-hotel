@@ -205,6 +205,23 @@ export async function deleteTrackingCode(id: string) {
   await revalidateSite()
 }
 
+// ===== CORPORATE MESSAGES =====
+export async function getCorporateMessages() {
+  const { data, error } = await getSupabase().from('corporate_messages').select('*').order('created_at', { ascending: false })
+  if (error) throw error
+  return data ?? []
+}
+
+export async function markCorporateAsRead(id: string) {
+  const { error } = await getSupabase().from('corporate_messages').update({ is_read: true }).eq('id', id)
+  if (error) throw error
+}
+
+export async function deleteCorporateMessage(id: string) {
+  const { error } = await getSupabase().from('corporate_messages').delete().eq('id', id)
+  if (error) throw error
+}
+
 // ===== BLOG POSTS =====
 export async function getBlogPostsAdmin() {
   const { data, error } = await getSupabase().from('blog_posts').select('*').order('published_at', { ascending: false })
