@@ -5,7 +5,7 @@ import { getDictionary, hasLocale, type Locale } from "@/dictionaries";
 import PageHero from "@/components/ui/PageHero";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import ReservationCTA from "@/components/sections/ReservationCTA";
-import { getVenues, getSettings, getPageHeroImage } from "@/lib/queries";
+import { getVenues, getSettings, getPageHeroImage, getPageMeta } from "@/lib/queries";
 import { localize } from "@/lib/localize";
 import { getReservationUrl } from "@/lib/types";
 import { ArrowRight } from "lucide-react";
@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   const { lang } = await params;
   if (!hasLocale(lang)) return {};
   const dict = await getDictionary(lang as Locale);
-  return { title: dict.meta.venuesTitle, description: dict.meta.venuesDesc };
+  return getPageMeta('venues', lang, { title: dict.meta.venuesTitle, description: dict.meta.venuesDesc });
 }
 
 export default async function MekanlarPage({ params }: { params: Promise<{ lang: string }> }) {

@@ -100,6 +100,23 @@ export async function getDocuments() {
   return data ?? [];
 }
 
+export async function getPageMeta(slug: string, lang: string, fallback: { title: string; description: string }) {
+  const seo = await getSeoBySlug(slug)
+  const title =
+    lang === 'en' ? (seo?.meta_title_en || seo?.meta_title || fallback.title) :
+    lang === 'de' ? (seo?.meta_title_de || seo?.meta_title || fallback.title) :
+    (seo?.meta_title || fallback.title)
+  const description =
+    lang === 'en' ? (seo?.meta_description_en || seo?.meta_description || fallback.description) :
+    lang === 'de' ? (seo?.meta_description_de || seo?.meta_description || fallback.description) :
+    (seo?.meta_description || fallback.description)
+  return {
+    title,
+    description,
+    ...(seo?.og_image ? { openGraph: { images: [seo.og_image] } } : {}),
+  }
+}
+
 export async function getSeoBySlug(slug: string) {
   const { data, error } = await supabase
     .from("seo_settings")

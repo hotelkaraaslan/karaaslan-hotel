@@ -5,7 +5,7 @@ import { getDictionary, hasLocale, type Locale } from "@/dictionaries";
 import PageHero from "@/components/ui/PageHero";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import ReservationCTA from "@/components/sections/ReservationCTA";
-import { getRooms, getSettings, getPageHeroImage } from "@/lib/queries";
+import { getRooms, getSettings, getPageHeroImage, getPageMeta } from "@/lib/queries";
 import { localize, localizeArray } from "@/lib/localize";
 import { getReservationUrl } from "@/lib/types";
 import { Eye, Layers, ArrowRight, Check } from "lucide-react";
@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   const { lang } = await params;
   if (!hasLocale(lang)) return {};
   const dict = await getDictionary(lang as Locale);
-  return { title: dict.meta.roomsTitle, description: dict.meta.roomsDesc };
+  return getPageMeta('rooms', lang, { title: dict.meta.roomsTitle, description: dict.meta.roomsDesc });
 }
 
 export default async function OdalarPage({ params }: { params: Promise<{ lang: string }> }) {

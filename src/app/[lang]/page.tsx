@@ -9,7 +9,7 @@ import GallerySection from "@/components/sections/GallerySection";
 import KusadasiSection from "@/components/sections/KusadasiSection";
 import ReservationCTA from "@/components/sections/ReservationCTA";
 import CorporateSection from "@/components/sections/CorporateSection";
-import { getSliders, getRooms, getVenues, getGallery, getPlaces, getSettings } from "@/lib/queries";
+import { getSliders, getRooms, getVenues, getGallery, getPlaces, getSettings, getPageMeta } from "@/lib/queries";
 import { getReservationUrl } from "@/lib/types";
 
 export const revalidate = 60;
@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   const { lang } = await params;
   if (!hasLocale(lang)) return {};
   const dict = await getDictionary(lang as Locale);
-  return { title: dict.meta.homeTitle, description: dict.meta.homeDesc };
+  return getPageMeta('home', lang, { title: dict.meta.homeTitle, description: dict.meta.homeDesc });
 }
 
 export default async function HomePage({ params }: { params: Promise<{ lang: string }> }) {

@@ -4,7 +4,7 @@ import { getDictionary, hasLocale, type Locale } from "@/dictionaries";
 import PageHero from "@/components/ui/PageHero";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import ReservationCTA from "@/components/sections/ReservationCTA";
-import { getSettings, getPageHeroImage, getCertificates } from "@/lib/queries";
+import { getSettings, getPageHeroImage, getCertificates, getPageMeta } from "@/lib/queries";
 import { localize } from "@/lib/localize";
 import { getReservationUrl } from "@/lib/types";
 import { Home, MapPin, Smile, Sun, Wifi, Coffee, Car, Globe } from "lucide-react";
@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   const { lang } = await params;
   if (!hasLocale(lang)) return {};
   const dict = await getDictionary(lang as Locale);
-  return { title: dict.meta.aboutTitle, description: dict.meta.aboutDesc };
+  return getPageMeta('about', lang, { title: dict.meta.aboutTitle, description: dict.meta.aboutDesc });
 }
 
 const icons = [Home, MapPin, Smile, Sun, Wifi, Coffee, Car, Globe];

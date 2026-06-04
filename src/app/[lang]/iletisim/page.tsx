@@ -3,7 +3,7 @@ import { getDictionary, hasLocale, type Locale } from "@/dictionaries";
 import PageHero from "@/components/ui/PageHero";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import ContactForm from "@/components/sections/ContactForm";
-import { getSettings, getPageHeroImage } from "@/lib/queries";
+import { getSettings, getPageHeroImage, getPageMeta } from "@/lib/queries";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 
 export const revalidate = 60;
@@ -12,7 +12,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   const { lang } = await params;
   if (!hasLocale(lang)) return {};
   const dict = await getDictionary(lang as Locale);
-  return { title: dict.meta.contactTitle, description: dict.meta.contactDesc };
+  return getPageMeta('contact', lang, { title: dict.meta.contactTitle, description: dict.meta.contactDesc });
 }
 
 export default async function IletisimPage({ params }: { params: Promise<{ lang: string }> }) {

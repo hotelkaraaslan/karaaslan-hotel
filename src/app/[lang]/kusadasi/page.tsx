@@ -4,7 +4,7 @@ import { getDictionary, hasLocale, type Locale } from "@/dictionaries";
 import PageHero from "@/components/ui/PageHero";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import ReservationCTA from "@/components/sections/ReservationCTA";
-import { getPlaces, getSettings, getPageHeroImage } from "@/lib/queries";
+import { getPlaces, getSettings, getPageHeroImage, getPageMeta } from "@/lib/queries";
 import { localize } from "@/lib/localize";
 import { getReservationUrl } from "@/lib/types";
 import { MapPin } from "lucide-react";
@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   const { lang } = await params;
   if (!hasLocale(lang)) return {};
   const dict = await getDictionary(lang as Locale);
-  return { title: dict.meta.kusadasiTitle, description: dict.meta.kusadasiDesc };
+  return getPageMeta('kusadasi', lang, { title: dict.meta.kusadasiTitle, description: dict.meta.kusadasiDesc });
 }
 
 export default async function KusadasiPage({ params }: { params: Promise<{ lang: string }> }) {

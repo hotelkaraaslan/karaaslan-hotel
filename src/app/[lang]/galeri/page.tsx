@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { getDictionary, hasLocale, type Locale } from "@/dictionaries";
 import PageHero from "@/components/ui/PageHero";
 import GalleryGrid from "@/components/sections/GalleryGrid";
-import { getGallery, getSettings, getPageHeroImage } from "@/lib/queries";
+import { getGallery, getSettings, getPageHeroImage, getPageMeta } from "@/lib/queries";
 
 export const revalidate = 60;
 
@@ -10,7 +10,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   const { lang } = await params;
   if (!hasLocale(lang)) return {};
   const dict = await getDictionary(lang as Locale);
-  return { title: dict.meta.galleryTitle, description: dict.meta.galleryDesc };
+  return getPageMeta('gallery', lang, { title: dict.meta.galleryTitle, description: dict.meta.galleryDesc });
 }
 
 export default async function GaleriPage({ params }: { params: Promise<{ lang: string }> }) {
