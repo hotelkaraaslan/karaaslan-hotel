@@ -15,6 +15,8 @@ import {
   MapPin,
   CheckCircle,
   Star,
+  Printer,
+  Flame,
 } from "lucide-react";
 
 export const revalidate = 60;
@@ -221,6 +223,82 @@ export default async function KurumsalSitePage() {
               </div>
             </div>
           </ScrollReveal>
+        </div>
+      </section>
+
+      {/* Çalışma Alanı */}
+      <section className="py-20 bg-white">
+        <div className="max-w-[1200px] mx-auto px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <ScrollReveal direction="left">
+              <span className="text-xs font-semibold tracking-[4px] uppercase text-accent mb-4 block">
+                Günübirlik & Kış Sezonu
+              </span>
+              <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-4xl font-semibold text-primary mb-6 leading-tight">
+                Ofisten Uzakta, <br />Verimlilik Yerinde
+              </h2>
+              <div className="w-16 h-0.5 bg-accent mb-8" />
+              <p className="text-text-light leading-8 mb-8">
+                Kuşadası merkezde, Didim, Söke ve Efes gibi önemli noktalara kolay erişim
+                mesafesinde bir çalışma alanı. Özellikle kış aylarında sakin ve konsantre
+                bir ortamda çalışmak isteyenler için günübirlik masa kiralama imkânı sunuyoruz.
+                Şöminenin yanında kahvenizi içerken işlerinizi halledin.
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {[
+                  { icon: Wifi, label: "Yüksek Hızlı Fiber İnternet" },
+                  { icon: Coffee, label: "Kahve & Çay Servisi" },
+                  { icon: MapPin, label: "Merkezi Konum" },
+                  { icon: Briefcase, label: "Günübirlik Masa Kiralama" },
+                  { icon: Printer, label: "Print & Tarama Hizmeti" },
+                  { icon: Flame, label: "Şömineli Lounge Alan" },
+                ].map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <div key={item.label} className="flex items-center gap-3 bg-cream px-4 py-3">
+                      <Icon size={16} className="text-accent flex-shrink-0" />
+                      <span className="text-sm text-primary font-medium">{item.label}</span>
+                    </div>
+                  );
+                })}
+              </div>
+              <a
+                href="#teklif"
+                className="inline-block mt-8 px-8 py-3 bg-accent text-white text-xs font-semibold tracking-[2px] uppercase hover:bg-accent-dark transition-colors"
+              >
+                Bilgi & Rezervasyon
+              </a>
+            </ScrollReveal>
+            <ScrollReveal direction="right">
+              <div className="bg-primary p-10 text-white">
+                <h3 className="font-[family-name:var(--font-heading)] text-xl font-semibold mb-6">
+                  Neden Kuşadası'nda Çalışırsınız?
+                </h3>
+                <ul className="space-y-4 text-white/80 text-sm leading-7">
+                  <li className="flex items-start gap-3">
+                    <CheckCircle size={15} className="text-accent flex-shrink-0 mt-1" />
+                    Didim, Söke ve Efes gibi Ege'nin önemli ticaret ve turizm merkezlerine 30–45 dakika mesafe
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle size={15} className="text-accent flex-shrink-0 mt-1" />
+                    Kış aylarında şehrin sessizliğinde konsantre çalışma ortamı
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle size={15} className="text-accent flex-shrink-0 mt-1" />
+                    Günübirlik kullanım veya haftalık / aylık düzenlemeler
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle size={15} className="text-accent flex-shrink-0 mt-1" />
+                    Gerektiğinde aynı gün odaya geçiş imkânı
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle size={15} className="text-accent flex-shrink-0 mt-1" />
+                    Konaklama + çalışma alanını birleştiren paket tarifeler
+                  </li>
+                </ul>
+              </div>
+            </ScrollReveal>
+          </div>
         </div>
       </section>
 
