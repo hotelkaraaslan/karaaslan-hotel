@@ -43,6 +43,12 @@ const nextConfig: NextConfig = {
         destination: "/",
         permanent: true,
       },
+      // Kurumsal page moved to subdomain
+      {
+        source: "/kurumsal",
+        destination: "https://kurumsal.karaaslanhotels.com",
+        permanent: true,
+      },
       // Old PDF document URLs → Supabase storage
       {
         source: "/kvkk_basvuru_formu.pdf",
