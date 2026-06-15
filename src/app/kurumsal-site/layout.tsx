@@ -26,9 +26,9 @@ export default async function KurumsalSiteLayout({
             <Image
               src="/logo.png"
               alt="Hotel By Karaaslan Inn"
-              width={160}
-              height={55}
-              className="h-10 w-auto brightness-0"
+              width={220}
+              height={75}
+              className="h-[4.5rem] w-auto brightness-0"
               priority
             />
             <span className="text-[9px] font-semibold tracking-[3px] uppercase text-accent mt-0.5 ml-0.5">
