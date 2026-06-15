@@ -21,7 +21,7 @@ export default async function KurumsalSiteLayout({
     <>
       {/* Header */}
       <header className="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm">
-        <div className="max-w-[1200px] mx-auto px-6 h-16 flex items-center justify-between">
+        <div className="max-w-[1200px] mx-auto px-6 h-24 flex items-center justify-between">
           <Link href="/" className="flex flex-col items-start">
             <Image
               src="/logo.png"
