@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { Phone } from "lucide-react";
 import { getSettings } from "@/lib/queries";
 
@@ -21,11 +22,16 @@ export default async function KurumsalSiteLayout({
       {/* Header */}
       <header className="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm">
         <div className="max-w-[1200px] mx-auto px-6 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3">
-            <span className="font-[family-name:var(--font-heading)] text-lg font-semibold text-primary">
-              {settings.hotel_name || "Hotel By Karaaslan Inn"}
-            </span>
-            <span className="hidden sm:inline-block text-xs font-semibold tracking-[2px] uppercase text-accent border border-accent px-2 py-0.5">
+          <Link href="/" className="flex flex-col items-start">
+            <Image
+              src="/logo.png"
+              alt="Hotel By Karaaslan Inn"
+              width={160}
+              height={55}
+              className="h-10 w-auto brightness-0"
+              priority
+            />
+            <span className="text-[9px] font-semibold tracking-[3px] uppercase text-accent mt-0.5 ml-0.5">
               Kurumsal
             </span>
           </Link>
