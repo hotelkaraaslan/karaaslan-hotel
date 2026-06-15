@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import ScrollReveal from '@/components/ui/ScrollReveal'
 import { Briefcase, Users, FileText, Wifi, Car, Coffee, Presentation, Clock } from 'lucide-react'
 
@@ -42,12 +41,12 @@ export default function CorporateSection({ lang }: Props) {
                 </div>
               ))}
             </div>
-            <Link
-              href={`${lp}/kurumsal`}
+            <a
+              href="https://kurumsal.karaaslanhotels.com"
               className="inline-flex items-center gap-3 px-8 py-4 bg-accent text-white text-xs font-semibold tracking-[3px] uppercase hover:bg-accent-dark transition-all hover:translate-y-[-2px] hover:shadow-[0_8px_25px_rgba(201,169,110,0.35)]"
             >
               Kurumsal Teklif Alın
-            </Link>
+            </a>
           </ScrollReveal>
 
           {/* Sağ: Stat kartları */}
